@@ -38,3 +38,9 @@ ALTER TABLE ONLY statuses
 
 ALTER TABLE ONLY cards
     ADD CONSTRAINT fk_board_id FOREIGN KEY (board_id) REFERENCES board(id);
+
+
+INSERT INTO board VALUES (1, 'Board 1');
+INSERT INTO board VALUES (2, 'Board 2');
+INSERT INTO cards VALUES (1,1,'new card',0,0);
+INSERT INTO cards VALUES (2,1,'new card',0,0);
