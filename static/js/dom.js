@@ -26,7 +26,7 @@ export let dom = {
             const singleBoard = createBoard(board.title);
             document.querySelector('#boards').appendChild(singleBoard);}
 
-        for (let i=0; i<4; i++) {
+        for (let i=0; i<6; i++) {
 
             const createColumn = function(title){
             const columnTemplate = document.querySelector('#column-template');

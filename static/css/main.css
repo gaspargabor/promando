@@ -1,3 +1,114 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat+Subrayada:400,700&display=swap");
+:root {
+  --border-radius: 3px;
+  --status-1: #590000;
+  --status-2: #594300;
+  --status-3: #525900;
+  --status-4: #085900; }
+
+html {
+  width: 100%; }
+
+body {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png); }
+
+h1 {
+  text-align: center;
+  font-size: 4em;
+  letter-spacing: 5px;
+  font-weight: 400; }
+
 #boards {
-    background-color: green;
-}
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 100vh; }
+  #boards section.board {
+    margin: 20px 0;
+    border: aliceblue;
+    background: #ffffff90;
+    border-radius: 3px; }
+    @media (min-width: 840px) {
+      #boards section.board {
+        margin: 20px !important; } }
+    #boards section.board .board-header {
+      height: 50px;
+      background: #fff; }
+      #boards section.board .board-header .board-title {
+        margin: 13px;
+        display: inline-block;
+        font-size: 20px; }
+      #boards section.board .board-header .board-title, #boards section.board .board-header .board-add, #boards section.board .board-header .board-toggle {
+        display: inline-block; }
+      #boards section.board .board-header .board-toggle {
+        float: right;
+        margin: 13px; }
+
+.board-columns {
+  display: flex;
+  flex-wrap: wrap; }
+
+.board-column {
+  padding: 10px;
+  flex: 2;
+  min-width: 250px;
+  max-width: 300px;
+  margin: 5px auto; }
+
+.board-column-content {
+  min-height: 49px; }
+
+.board-column-content:empty {
+  /*This only works if the tag is really empty and there is not even whitespace inside*/
+  border: 4px solid #cdcdcd;
+  margin-top: 4px;
+  border-radius: 10px;
+  background: #eee; }
+
+.board-column-title {
+  text-align: center; }
+
+.card {
+  position: relative;
+  background: #222;
+  color: #fff;
+  border-radius: var(--border-radius);
+  margin: 4px 0;
+  padding: 4px; }
+
+.board-column:nth-of-type(1) .card {
+  background: var(--status-1); }
+
+.board-column:nth-of-type(2) .card {
+  background: var(--status-2); }
+
+.board-column:nth-of-type(3) .card {
+  background: var(--status-3); }
+
+.board-column:nth-of-type(4) .card {
+  background: var(--status-4); }
+
+.card-remove {
+  display: block;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 12px;
+  cursor: pointer; }
+
+.card-title {
+  padding-right: 16px; }
+
+button {
+  background: #222;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  font-family: sans-serif;
+  padding: 4px 10px; }
+
+/*# sourceMappingURL=main.css.map */
