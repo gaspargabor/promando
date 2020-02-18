@@ -46,8 +46,8 @@ export let dom = {
 
         loadCards: function (boardId) {
             // retrieves cards and makes showCards called
-            dataHandler.getCardsByBoardId(function(boards){
-            dom.showCards(cards);
+            dataHandler.getCardsByBoardId(boardId,function(boards){
+            dom.showCards(card);
         });
         },
         showCards: function (cards) {
@@ -61,7 +61,7 @@ export let dom = {
             clone.querySelector('.card-title').textContent = title;
             return clone;
             };
-            const singleCol = createCard(card.cards_title);
+            const singleCol = createCard(card.title);
             document.querySelector('.board-column-content').appendChild(singleCol);}
         },
         // here comes more features
