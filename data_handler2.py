@@ -29,3 +29,5 @@ def get_cards_for_board(cursor, board_id):
                    )
     cards = cursor.fetchall()
     return cards
+
+

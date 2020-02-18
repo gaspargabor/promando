@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS public.statuses;
 DROP SEQUENCE IF EXISTS public.statuses_id_seq;
 CREATE TABLE statuses (
     id serial NOT NULL,
+    board_id integer,
     title text
 );
 
@@ -37,6 +38,9 @@ ALTER TABLE ONLY statuses
     ADD CONSTRAINT pk_statuses_id PRIMARY KEY (id);
 
 ALTER TABLE ONLY cards
+    ADD CONSTRAINT fk_board_id FOREIGN KEY (board_id) REFERENCES board(id);
+
+ALTER TABLE ONLY statuses
     ADD CONSTRAINT fk_board_id FOREIGN KEY (board_id) REFERENCES board(id);
 
 
