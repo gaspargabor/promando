@@ -25,40 +25,40 @@ export let dom = {
             return clone;
             };
             const singleBoard = createBoard(board.title);
+            console.log(board)
             document.querySelector('#boards').appendChild(singleBoard);
-                for (let i=0; i<4; i++) {
+                for (let i=1; i < board.count; i++) {
                     const createColumn = function(title){
                     const columnTemplate = document.querySelector('#column-template');
                     const clone = document.importNode(columnTemplate.content, true);
                     clone.querySelector('.board-column-title').textContent = title;
-                    clone.querySelector('.board-column').setAttribute('id', 'board-col' + i);
-                    clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' + i);
+                    clone.querySelector('.board-column').setAttribute('id', 'board-col' + board.id+ i);
+                    clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +board.id + i);
                     return clone;
                     };
                     const singleCol = createColumn('Column title');
                     document.querySelector('#columns' + board.id).appendChild(singleCol);
-                    console.log(i);
-                    dom.loadCards(board.id, i);}
-                }
 
+                    }
+
+                }
+        dom.loadCards();
         },
 
 
 
-        loadCards: function (boardId, statId) {
+        loadCards: function () {
             // retrieves cards and makes showCards called
-            console.log('loadcard');
-            console.log(statId);
-            dataHandler.getCardsByBoardId(boardId,function(cards){
-                console.log('bedore show card');
-            console.log(statId);
-            dom.showCards(cards, statId);
+
+            dataHandler.getCards(function(cards){
+            dom.showCards(cards);
         });
         },
-        showCards: function (cards, statId) {
+        showCards: function (cards) {
             // shows the cards of a board
             // it adds necessary event listeners also
-            console.log(statId);
+            console.log(cards);
+
             for (let card of cards) {
             const createCard = function(title){
             const cardTemplate = document.querySelector('#card-template');
@@ -66,10 +66,9 @@ export let dom = {
             clone.querySelector('.card-title').textContent = title;
             return clone;
             };
-            const singleCol = createCard('whut dis shiat');
-            console.log('.board-col-cont' + statId);
-            console.log(document.querySelector('#board-col-cont' + statId));
-            document.querySelector('#board-col-cont' + statId).appendChild(singleCol);}
+            const singleCol = createCard(card.title);
+
+            document.querySelector('#board-col-cont' + card.board_id + card.status_id).appendChild(singleCol);}
         },
         // here comes more features
 };
