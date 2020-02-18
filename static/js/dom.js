@@ -25,9 +25,9 @@ export let dom = {
             return clone;
             };
             const singleBoard = createBoard(board.title);
-            console.log(board)
+            console.log(board);
             document.querySelector('#boards').appendChild(singleBoard);
-                for (let i=1; i < board.count; i++) {
+                for (let i=1; i < board.count + 1; i++) {
                     const createColumn = function(title){
                     const columnTemplate = document.querySelector('#column-template');
                     const clone = document.importNode(columnTemplate.content, true);
@@ -67,8 +67,8 @@ export let dom = {
             return clone;
             };
             const singleCol = createCard(card.title);
-
-            document.querySelector('#board-col-cont' + card.board_id + card.status_id).appendChild(singleCol);}
+            console.log('#board-col-cont' + card.status_id);
+            document.querySelector('#board-col-cont' + card.status_id).appendChild(singleCol);}
         },
         // here comes more features
 };
