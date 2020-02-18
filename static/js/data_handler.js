@@ -8,7 +8,6 @@ export let dataHandler = {
     _api_get: function (url, callback) {
         // it is not called from outside
         // loads data from API, parses it and calls the callback with it
-        console.log('why u here')
         fetch(url, {
             method: 'GET',
             credentials: 'same-origin'
@@ -43,7 +42,6 @@ export let dataHandler = {
     },
     getCardsByBoardId: function (boardId, callback) {
         // the cards are retrieved and then the callback function is called with the cards
-        console.log(boardId);
                 this._api_get('/get-cards/' + boardId, (response) => {
             this._data = response;
             callback(response);
