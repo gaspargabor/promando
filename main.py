@@ -42,7 +42,7 @@ def get_cards_for_board(board_id: int):
 def add_board():
     if request.method == 'POST':
         data_handler2.add_new_board()
-        return 'hello?'
+        return data_handler2.get_newest_board()
     else:
         return 'server get'
 

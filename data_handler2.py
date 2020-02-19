@@ -37,3 +37,14 @@ def add_new_board(cursor):
                     VALUES ('new_board')
                     """)
 
+@database_common.connection_handler
+def get_newest_board(cursor):
+    cursor.execute("""
+                    SELECT * FROM board
+                    ORDER BY id DESC
+                    LIMIT 1
+                    """)
+    last_board = cursor.fetchone()
+    return last_board
+
+
