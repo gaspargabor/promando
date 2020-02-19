@@ -36,5 +36,4 @@ def add_new_board(cursor):
                     INSERT INTO board(title)
                     VALUES ('new_board')
                     """)
-    new_board = cursor.fetchall()
-    return new_board
+

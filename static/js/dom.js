@@ -37,7 +37,7 @@ export let dom = {
                     };
                     const singleCol = createColumn('Column title');
                     document.querySelector('#columns' + board.id).appendChild(singleCol);
-                    console.log(i);
+
                     dom.loadCards(board.id, i);}
                 }
 
@@ -47,18 +47,15 @@ export let dom = {
 
         loadCards: function (boardId, statId) {
             // retrieves cards and makes showCards called
-            console.log('loadcard');
-            console.log(statId);
+
             dataHandler.getCardsByBoardId(boardId,function(cards){
-                console.log('bedore show card');
-            console.log(statId);
+
             dom.showCards(cards, statId);
         });
         },
         showCards: function (cards, statId) {
             // shows the cards of a board
             // it adds necessary event listeners also
-            console.log(statId);
             for (let card of cards) {
             const createCard = function(title){
             const cardTemplate = document.querySelector('#card-template');
@@ -67,8 +64,7 @@ export let dom = {
             return clone;
             };
             const singleCol = createCard('whut dis shiat');
-            console.log('.board-col-cont' + statId);
-            console.log(document.querySelector('#board-col-cont' + statId));
+
             document.querySelector('#board-col-cont' + statId).appendChild(singleCol);}
         },
         // here comes more features

@@ -41,8 +41,7 @@ def get_cards_for_board(board_id: int):
 @json_response
 def add_board():
     if request.method == 'POST':
-        print("in add-board")
-        print("hjeloooo")
+        data_handler2.add_new_board()
         return 'hello?'
     else:
         return 'server get'
