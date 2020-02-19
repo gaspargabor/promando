@@ -14,11 +14,14 @@ def get_card_status(cursor, status_id):
 @database_common.connection_handler
 def get_boards(cursor):
     cursor.execute("""
-                    SELECT COUNT(statuses.title), statuses.board_id, b.id, b.title from statuses
-                    inner join board b on statuses.board_id = b.id
-                    GROUP BY board_id, b.id
+                    SELECT distinct  board.title as board_title, statuses.id as column_id, board.id as board_id, 
+                    (SELECT COUNT(statuses.title) FROM statuses  WHERE statuses.board_id = board.id) as column_count 
+                    from board
+                    inner join statuses on board.id = statuses.board_id
+
                     """)
     boards = cursor.fetchall()
+
     return boards
 
 @database_common.connection_handler
@@ -35,10 +38,11 @@ def get_cards_for_board(cursor, board_id):
 
 
 @database_common.connection_handler
-def get_cards(cursor):
+def get_cards(cursor, board_id):
     cursor.execute("""
                     SELECT * FROM cards
-                    """)
+                    WHERE board_id = %(board_id)s
+                    """, {'board_id': board_id})
     cards = cursor.fetchall()
     return cards
 

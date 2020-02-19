@@ -44,15 +44,15 @@ export let dataHandler = {
     getCardsByBoardId: function (boardId, callback) {
         // the cards are retrieved and then the callback function is called with the cards
                 console.log(boardId)
-                this._api_get('/get-cards', (response) => {
+                this._api_get('/get-cards' + boardId, (response) => {
             this._data = response;
             callback(response);
         });
     },
-    getCards: function (callback) {
+    getCards: function (board_id, callback) {
         // the cards are retrieved and then the callback function is called with the cards
 
-                this._api_get('/get-cards', (response) => {
+                this._api_get('/get-cards' + board_id, (response) => {
             this._data = response;
             callback(response);
         });
