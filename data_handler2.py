@@ -33,6 +33,8 @@ def get_cards_for_board(cursor, board_id):
 @database_common.connection_handler
 def add_new_board(cursor):
     cursor.execute("""
-                    INSERT INTO board
+                    INSERT INTO board(title)
                     VALUES ('new_board')
                     """)
+    new_board = cursor.fetchall()
+    return new_board

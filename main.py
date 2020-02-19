@@ -37,12 +37,13 @@ def get_cards_for_board(board_id: int):
     return data_handler2.get_cards_for_board(board_id)
 
 
-@app.route("/add-board", methods=['GET'])
+@app.route("/add-board", methods=['GET', 'POST'])
 @json_response
 def add_board():
-    if request.method == 'GET':
-        data_handler2.add_new_board()
-        return redirect('/')
+    print("in add-board")
+    new = data_handler2.add_new_board()
+    print(new)
+    return new
 
 def main():
     app.run(debug=True,

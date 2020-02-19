@@ -76,7 +76,9 @@ export let dom = {
         let button = document.getElementById('add-board');
         button.addEventListener('click', function () {
             console.log("yayayaya");
-            dataHandler.createNewBoard()
+            dataHandler.createNewBoard(function () {
+                console.log("im createboard callback func.")
+            })
         })
     }
 
