@@ -7,15 +7,12 @@ import data_handler2
 app = Flask(__name__)
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/")
 def index():
-    if request.method == 'POST':
-        print('ittvagyok POG')
-    else:
-        """
-        This is a one-pager which shows all the boards and cards
-        """
-        return render_template('index.html')
+    """
+    This is a one-pager which shows all the boards and cards
+    """
+    return render_template('index.html')
 
 
 @app.route("/get-boards")
@@ -27,14 +24,36 @@ def get_boards():
     return data_handler2.get_boards()
 
 
-@app.route("/get-cards/<int:board_id>")
+@app.route("/get-statuses/<int:board_id>")
 @json_response
-def get_cards_for_board(board_id: int):
+def get_statuses(board_id):
+    """
+    All the boards
+    """
+    print('in get stat server')
+    print(board_id)
+
+    return data_handler2.get_statuses(board_id)
+
+
+@app.route("/get-cards")
+@json_response
+def get_cards_for_board():
     """
     All cards that belongs to a board
     :param board_id: id of the parent board
     """
-    return data_handler2.get_cards_for_board(board_id)
+    return data_handler2.get_cards()
+
+@app.route("/get-cards")
+@json_response
+def get_cards():
+    """
+    All cards that belongs to a board
+    :param board_id: id of the parent board
+    """
+    return data_handler2.get_cards()
+
 
 
 @app.route("/add-board", methods=['GET', 'POST'])
