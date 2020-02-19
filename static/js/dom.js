@@ -38,6 +38,7 @@ export let dom = {
                 dataHandler.deleteBoard(board.id, function () {
                     console.log('delete');
                     console.log(board.id);
+                    dom.deleteBoard(board.id);
                 })
             });
             return clone;
@@ -111,7 +112,9 @@ export let dom = {
         },
 
         deleteBoard: function (board_id) {
-            document.querySelector('.board'+ board_id).remove();
+            console.log('board id in delete board');
+            console.log(board_id);
+            document.querySelector('#board'+ board_id).remove();
 
         }
 
