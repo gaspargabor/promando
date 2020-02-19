@@ -28,6 +28,7 @@ export let dataHandler = {
         })
           .then(response => response.json())
             .then(data => callback(data))
+
             ;
 
 
@@ -41,6 +42,7 @@ export let dataHandler = {
         //    if we would use function(){...} here, the value of 'this' would change.
         this._api_get('/get-boards', (response) => {
             this._data = response;
+
             callback(response);
         });
     },

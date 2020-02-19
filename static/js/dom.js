@@ -41,6 +41,7 @@ export let dom = {
                     const columnTemplate = document.querySelector('#column-template');
                     const clone = document.importNode(columnTemplate.content, true);
                     clone.querySelector('.board-column-title').textContent = title;
+                    console.log(i)
                     clone.querySelector('.board-column').setAttribute('id', 'board-col' + i);
                     clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' + i);
                     return clone;
@@ -73,7 +74,7 @@ export let dom = {
             return clone;
             };
             const singleCol = createCard('whut dis shiat');
-
+            console.log(statId)
             document.querySelector('#board-col-cont' + statId).appendChild(singleCol);}
         },
         // here comes more features
