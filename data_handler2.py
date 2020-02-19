@@ -23,8 +23,7 @@ def get_boards(cursor):
 
 @database_common.connection_handler
 def get_statuses(cursor, board_id):
-    print('board id')
-    print(board_id)
+
     cursor.execute("""
                     SELECT * FROM statuses
                     WHERE board_id= %(board_id)s
@@ -61,6 +60,7 @@ def add_new_board(cursor):
                     VALUES ('new_board')
                     """)
 
+
 @database_common.connection_handler
 def get_newest_board(cursor):
     cursor.execute("""
@@ -72,3 +72,16 @@ def get_newest_board(cursor):
     return last_board
 
 
+@database_common.connection_handler
+def add_default_stat(cursor):
+    board = get_newest_board()
+    default_title = "New stat"
+    print(board)
+    print(default_title)
+    for i in range(1, 5):
+        stat_id = str(board['id']) + str(i)
+        print(stat_id)
+        cursor.execute("""
+                        INSERT INTO statuses(id, board_id, title)
+                         VALUES (%(stat_id)s, %(board_id)s, %(default_title)s )""",
+                       {'stat_id': stat_id, 'board_id': board['id'], 'default_title': default_title})

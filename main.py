@@ -61,6 +61,7 @@ def get_cards():
 def add_board():
     if request.method == 'POST':
         data_handler2.add_new_board()
+        data_handler2.add_default_stat()
         return data_handler2.get_newest_board()
     else:
         return 'server get'
