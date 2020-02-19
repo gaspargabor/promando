@@ -14,7 +14,7 @@ def get_card_status(cursor, status_id):
 @database_common.connection_handler
 def get_boards(cursor):
     cursor.execute("""
-                    SELECT distinct  board.title as board_title, statuses.id as column_id, board.id as board_id, 
+                    SELECT distinct  board.title, board.id, 
                     (SELECT COUNT(statuses.title) FROM statuses  WHERE statuses.board_id = board.id) as column_count 
                     from board
                     inner join statuses on board.id = statuses.board_id
