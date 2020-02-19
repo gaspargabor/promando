@@ -75,7 +75,7 @@ def get_newest_board(cursor):
 @database_common.connection_handler
 def add_default_stat(cursor):
     board = get_newest_board()
-    default_title = "New stat"
+    default_title = "New Column"
     print(board)
     print(default_title)
     for i in range(1, 5):
