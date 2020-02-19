@@ -14,9 +14,23 @@ def get_card_status(cursor, status_id):
 @database_common.connection_handler
 def get_boards(cursor):
     cursor.execute("""
-                    SELECT * FROM board""")
+                    SELECT COUNT(statuses.title), statuses.board_id, b.id, b.title from statuses
+                    full join board b on statuses.board_id = b.id
+                    GROUP BY board_id, b.id
+                    """)
     boards = cursor.fetchall()
     return boards
+
+@database_common.connection_handler
+def get_statuses(cursor, board_id):
+    print('board id')
+    print(board_id)
+    cursor.execute("""
+                    SELECT * FROM statuses
+                    WHERE board_id= %(board_id)s
+                        """, {'board_id': board_id})
+    statuses = cursor.fetchall()
+    return statuses
 
 @database_common.connection_handler
 def get_cards_for_board(cursor, board_id):
@@ -29,6 +43,16 @@ def get_cards_for_board(cursor, board_id):
                    )
     cards = cursor.fetchall()
     return cards
+
+
+@database_common.connection_handler
+def get_cards(cursor):
+    cursor.execute("""
+                    SELECT * FROM cards
+                    """)
+    cards = cursor.fetchall()
+    return cards
+
 
 @database_common.connection_handler
 def add_new_board(cursor):

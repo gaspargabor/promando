@@ -8,6 +8,7 @@ export let dataHandler = {
     _api_get: function (url, callback) {
         // it is not called from outside
         // loads data from API, parses it and calls the callback with it
+        console.log('in api get');
 
         fetch(url, {
             method: 'GET',
@@ -47,16 +48,23 @@ export let dataHandler = {
     getBoard: function (boardId, callback) {
         // the board is retrieved and then the callback function is called with the board
     },
-    getStatuses: function (callback) {
+    getStatuses: function (board_id, callback) {
         // the statuses are retrieved and then the callback function is called with the statuses
+        console.log('in getStat handler js');
+        this._api_get('/get-statuses/' + board_id, (response) => {
+            console.log('in api get call');
+            this._data = response;
+            callback(response);
+        });
+
     },
     getStatus: function (statusId, callback) {
         // the status is retrieved and then the callback function is called with the status
     },
-    getCardsByBoardId: function (boardId, callback) {
+    getCardsByBoardId: function (callback) {
         // the cards are retrieved and then the callback function is called with the cards
-
-                this._api_get('/get-cards/' + boardId, (response) => {
+                console.log('dh getcards before api')
+                this._api_get('/get-cards', (response) => {
 
             this._data = response;
             callback(response);
