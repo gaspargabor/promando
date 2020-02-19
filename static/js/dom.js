@@ -16,6 +16,7 @@ export let dom = {
         // it adds necessary event listeners also
 
         for(let board of boards){
+            console.log(board.id);
                 dom.showBoard(board);
                 }
 
@@ -35,8 +36,8 @@ export let dom = {
             clone.querySelector('.delete-board').setAttribute('id', 'delete'+ board.id);
             clone.querySelector('#delete' + board.id).addEventListener('click', function () {
                 dataHandler.deleteBoard(board.id, function () {
-                    console.log('delete')
-                    dom.deleteBoard(board.id)
+                    console.log('delete');
+                    console.log(board.id);
                 })
             });
             return clone;

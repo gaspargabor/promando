@@ -30,9 +30,6 @@ def get_statuses(board_id):
     """
     All the boards
     """
-    print('in get stat server')
-    print(board_id)
-
     return data_handler2.get_statuses(board_id)
 
 

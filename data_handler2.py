@@ -68,16 +68,21 @@ def get_newest_board(cursor):
 
 @database_common.connection_handler
 def add_new_board(cursor):
+    cursor.execute("""
+                    INSERT INTO board(title)
+                    VALUES (%(new_board)s)
+                    """, {'new_board': 'new_board'})
     board = get_newest_board()
-    print(board)
+    print(board['id'])
     if not board:
         new_board = 'Board ' + '1'
     else:
         new_board = 'Board ' + str(board['id'])
     cursor.execute("""
-                    INSERT INTO board(title)
-                    VALUES (%(new_board)s)
-                    """, {'new_board': new_board})
+                    UPDATE board
+                    SET title = %(new_board)s
+                    WHERE board.id=%(board_id)s;
+                    """, {'new_board': new_board, 'board_id': board['id']})
 
 @database_common.connection_handler
 def delete_card_by_boardid(cursor, board_id):
@@ -104,13 +109,9 @@ def delete_board(cursor, board_id):
 @database_common.connection_handler
 def add_default_stat(cursor):
     board = get_newest_board()
-    default_title = "New Column"
-    print(board)
-    print(default_title)
     statuses = ['new', 'in progress', 'testing', 'done']
-    for i in range(1,5):
+    for i in range(1, 5):
         stat_id = str(board['id']) + str(i)
-        print(stat_id)
         cursor.execute("""
                         INSERT INTO statuses(id, board_id, title)
                          VALUES (%(stat_id)s, %(board_id)s, %(default_title)s )""",

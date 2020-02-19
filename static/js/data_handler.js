@@ -8,7 +8,6 @@ export let dataHandler = {
     _api_get: function (url, callback) {
         // it is not called from outside
         // loads data from API, parses it and calls the callback with it
-        console.log('in api get');
 
         fetch(url, {
             method: 'GET',
@@ -52,9 +51,7 @@ export let dataHandler = {
     },
     getStatuses: function (board_id, callback) {
         // the statuses are retrieved and then the callback function is called with the statuses
-        console.log('in getStat handler js');
         this._api_get('/get-statuses/' + board_id, (response) => {
-            console.log('in api get call');
             this._data = response;
             callback(response);
         });
@@ -65,7 +62,6 @@ export let dataHandler = {
     },
     getCardsByBoardId: function (callback) {
         // the cards are retrieved and then the callback function is called with the cards
-                console.log('dh getcards before api')
                 this._api_get('/get-cards', (response) => {
 
             this._data = response;
