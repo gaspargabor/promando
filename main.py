@@ -47,7 +47,7 @@ def get_cards():
 def main():
     app.run(debug=True,
             host='0.0.0.0',
-            port=6070)
+            port=8000)
 
     # Serving the favicon
     with app.app_context():

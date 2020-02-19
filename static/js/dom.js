@@ -14,11 +14,7 @@ export let dom = {
     showBoards: function (boards) {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
-        let col_list = [];
-        for(let board of boards){
-            console.log(board)
-            col_list.push(board.column_id)
-        }
+
         for(let board of boards){
             const createBoard = function(title){
             const boardTemplate = document.querySelector('#board-template');
@@ -29,7 +25,7 @@ export let dom = {
             return clone;
             };
             const singleBoard = createBoard(board.title);
-            console.log(board)
+            console.log(board);
             document.querySelector('#boards').appendChild(singleBoard);
                 for (let i=1; i < board.count + 1; i++) {
                     const createColumn = function(title){
@@ -38,24 +34,23 @@ export let dom = {
                     clone.querySelector('.board-column-title').textContent = title;
                     clone.querySelector('.board-column').setAttribute('id', 'board-col' + board.id+ i);
                     clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +board.id + i);
-
                     return clone;
                     };
                     const singleCol = createColumn('Column title');
                     document.querySelector('#columns' + board.id).appendChild(singleCol);
 
                     }
-                dom.loadCards(board.id);
-                }
 
+                }
+        dom.loadCards();
         },
 
 
 
-        loadCards: function (board_id) {
+        loadCards: function () {
             // retrieves cards and makes showCards called
 
-            dataHandler.getCardsByBoardId(board_id,function(cards){
+            dataHandler.getCards(function(cards){
             dom.showCards(cards);
         });
         },
@@ -65,20 +60,15 @@ export let dom = {
             console.log(cards);
 
             for (let card of cards) {
-                console.log(card);
-
             const createCard = function(title){
             const cardTemplate = document.querySelector('#card-template');
             const clone = document.importNode(cardTemplate.content, true);
             clone.querySelector('.card-title').textContent = title;
             return clone;
             };
-
             const singleCol = createCard(card.title);
-
-
-            document.querySelector('#board-col-cont' + card.board_id ).appendChild(singleCol);}
-
+            console.log('#board-col-cont' + card.status_id);
+            document.querySelector('#board-col-cont' + card.status_id).appendChild(singleCol);}
         },
         // here comes more features
 };
