@@ -32,6 +32,13 @@ export let dom = {
             clone.querySelector('.board-title').textContent = title;
             clone.querySelector('.board').setAttribute('id', 'board' + board.id);
             clone.querySelector('.board-columns').setAttribute('id', 'columns' + board.id);
+            clone.querySelector('.delete-board').setAttribute('id', 'delete'+ board.id);
+            clone.querySelector('#delete' + board.id).addEventListener('click', function () {
+                dataHandler.deleteBoard(board.id, function () {
+                    console.log('delete')
+                    dom.deleteBoard(board.id)
+                })
+            });
             return clone;
             };
             const singleBoard = createBoard(board.title);
@@ -44,7 +51,7 @@ export let dom = {
 
         loadStatuses: function(board_id) {
             dataHandler.getStatuses(board_id, function (statuses) {
-                console.log(statuses);
+
                 dom.showStatuses(statuses);
             })
 
@@ -79,7 +86,6 @@ export let dom = {
         showCards: function (cards) {
             // shows the cards of a board
             // it adds necessary event listeners also
-            console.log(cards);
 
             for (let card of cards) {
             const createCard = function(title){
@@ -89,7 +95,6 @@ export let dom = {
             return clone;
             };
             const singleCol = createCard(card.title);
-            console.log('#board-col-cont' + card.status_id);
             document.querySelector('#board-col-cont' + card.status_id).appendChild(singleCol);}
         },
         // here comes more features
@@ -97,14 +102,16 @@ export let dom = {
         addBoard: function () {
             let button = document.getElementById('add-board');
             button.addEventListener('click', function () {
-                console.log("yayayaya");
                 dataHandler.createNewBoard(function (new_board) {
-                    console.log("im createboard callback func.");
-                    console.log(new_board);
                     dom.showBoard(new_board);
 
                 })
             })
+        },
+
+        deleteBoard: function (board_id) {
+            document.querySelector('.board'+ board_id).remove();
+
         }
 
 };

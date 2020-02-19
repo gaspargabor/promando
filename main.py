@@ -66,6 +66,14 @@ def add_board():
     else:
         return 'server get'
 
+@app.route("/delete-board/<board_id>", methods=['GET', 'POST'])
+@json_response
+def delete_board(board_id):
+    if request.method == 'POST':
+        data_handler2.delete_card_by_boardid(board_id)
+        data_handler2.delete_status_by_boardid(board_id)
+        data_handler2.delete_board(board_id)
+
 
 def main():
     app.run(debug=True,

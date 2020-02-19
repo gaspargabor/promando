@@ -17,6 +17,7 @@ def get_boards(cursor):
                     SELECT COUNT(statuses.title), statuses.board_id, b.id, b.title from statuses
                     full join board b on statuses.board_id = b.id
                     GROUP BY board_id, b.id
+                    ORDER BY b.id ASC
                     """)
     boards = cursor.fetchall()
     return boards
@@ -53,12 +54,6 @@ def get_cards(cursor):
     return cards
 
 
-@database_common.connection_handler
-def add_new_board(cursor):
-    cursor.execute("""
-                    INSERT INTO board(title)
-                    VALUES ('new_board')
-                    """)
 
 
 @database_common.connection_handler
@@ -71,6 +66,40 @@ def get_newest_board(cursor):
     last_board = cursor.fetchone()
     return last_board
 
+@database_common.connection_handler
+def add_new_board(cursor):
+    board = get_newest_board()
+    print(board)
+    if not board:
+        new_board = 'Board ' + '1'
+    else:
+        new_board = 'Board ' + str(board['id'])
+    cursor.execute("""
+                    INSERT INTO board(title)
+                    VALUES (%(new_board)s)
+                    """, {'new_board': new_board})
+
+@database_common.connection_handler
+def delete_card_by_boardid(cursor, board_id):
+    cursor.execute("""
+                    DELETE FROM cards
+                    WHERE board_id = %(board_id)s""",
+                   {'board_id': board_id})
+
+@database_common.connection_handler
+def delete_status_by_boardid(cursor, board_id):
+    cursor.execute("""
+                    DELETE FROM statuses
+                    WHERE board_id = %(board_id)s""",
+                   {'board_id': board_id})
+
+@database_common.connection_handler
+def delete_board(cursor, board_id):
+    cursor.execute("""
+                    DELETE FROM board
+                    WHERE id = %(board_id)s""",
+                   {'board_id': board_id})
+
 
 @database_common.connection_handler
 def add_default_stat(cursor):
@@ -78,10 +107,11 @@ def add_default_stat(cursor):
     default_title = "New Column"
     print(board)
     print(default_title)
-    for i in range(1, 5):
+    statuses = ['new', 'in progress', 'testing', 'done']
+    for i in range(1,5):
         stat_id = str(board['id']) + str(i)
         print(stat_id)
         cursor.execute("""
                         INSERT INTO statuses(id, board_id, title)
                          VALUES (%(stat_id)s, %(board_id)s, %(default_title)s )""",
-                       {'stat_id': stat_id, 'board_id': board['id'], 'default_title': default_title})
+                       {'stat_id': stat_id, 'board_id': board['id'], 'default_title': statuses[i-1]})
