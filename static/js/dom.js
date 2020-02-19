@@ -73,7 +73,30 @@ export let dom = {
         button.addEventListener('click', function () {
             console.log("yayayaya");
             dataHandler.createNewBoard(function () {
-                console.log("im createboard callback func.")
+                console.log("im createboard callback func.");
+                            const createBoard = function(title){
+            const boardTemplate = document.querySelector('#board-template');
+            const clone = document.importNode(boardTemplate.content, true);
+            clone.querySelector('.board-title').textContent = title;
+            clone.querySelector('.board').setAttribute('id', 'board' + 'board.id');
+            clone.querySelector('.board-columns').setAttribute('id', 'columns' + 'board.id');
+            return clone;
+            };
+            const singleBoard = createBoard('board.title');
+            document.querySelector('#boards').appendChild(singleBoard);
+                for (let i=0; i<4; i++) {
+                    const createColumn = function(title){
+                    const columnTemplate = document.querySelector('#column-template');
+                    const clone = document.importNode(columnTemplate.content, true);
+                    clone.querySelector('.board-column-title').textContent = title;
+                    clone.querySelector('.board-column').setAttribute('id', 'board-col' + 'i');
+                    clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' + 'i');
+                    return clone;
+                    };
+                    const singleCol = createColumn('Column title');
+                    document.querySelector('#columns' + 'board.id').appendChild(singleCol);
+
+                }
             })
         })
     }
