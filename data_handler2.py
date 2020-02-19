@@ -29,3 +29,10 @@ def get_cards_for_board(cursor, board_id):
                    )
     cards = cursor.fetchall()
     return cards
+
+@database_common.connection_handler
+def add_new_board(cursor):
+    cursor.execute("""
+                    INSERT INTO board
+                    VALUES ('new_board')
+                    """)

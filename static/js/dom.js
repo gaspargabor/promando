@@ -72,4 +72,12 @@ export let dom = {
             document.querySelector('#board-col-cont' + statId).appendChild(singleCol);}
         },
         // here comes more features
+    addBoard: function () {
+        let button = document.getElementById('add-board');
+        button.addEventListener('click', function () {
+            console.log("yayayaya");
+            dataHandler.createNewBoard()
+        })
+    }
+
 };
