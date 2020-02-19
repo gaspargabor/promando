@@ -25,7 +25,7 @@ export let dom = {
             return clone;
             };
             const singleBoard = createBoard(board.title);
-            console.log(board);
+            console.log(board)
             document.querySelector('#boards').appendChild(singleBoard);
                 for (let i=1; i < board.count + 1; i++) {
                     const createColumn = function(title){
@@ -34,6 +34,7 @@ export let dom = {
                     clone.querySelector('.board-column-title').textContent = title;
                     clone.querySelector('.board-column').setAttribute('id', 'board-col' + board.id+ i);
                     clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +board.id + i);
+
                     return clone;
                     };
                     const singleCol = createColumn('Column title');
@@ -67,7 +68,6 @@ export let dom = {
             return clone;
             };
             const singleCol = createCard(card.title);
-            console.log('#board-col-cont' + card.status_id);
             document.querySelector('#board-col-cont' + card.status_id).appendChild(singleCol);}
         },
         // here comes more features
