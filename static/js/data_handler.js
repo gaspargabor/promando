@@ -16,16 +16,22 @@ export let dataHandler = {
         .then(response => response.json())  // parse the response as JSON
         .then(json_response => callback(json_response));  // Call the `callback` with the returned object
     },
-    _api_post: function (url, data, callback) {
+    _api_post: function (url) {
         // it is not called from outside
         // sends the data to the API, and calls callback function
-                fetch(url, {
-            method: 'POST',
-            body: JSON.stringify({data:data})
+
+        fetch(url, {
+          method: "POST",
+          headers: { 'Accept': 'application/json',
+              'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: 'data', hjelo: 'hjelo' })
         })
-        .then((response)=> response.json())
-                    .then((data)=>console.log(data))
-                    // parse the response as JSON
+          .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                console.log('in data mf')
+            });
+
     },
     init: function () {
     },
@@ -52,6 +58,7 @@ export let dataHandler = {
         // the cards are retrieved and then the callback function is called with the cards
                 console.log(boardId)
                 this._api_get('/get-cards/' + boardId, (response) => {
+                    console.log(response)
             this._data = response;
             callback(response);
         });
@@ -60,13 +67,8 @@ export let dataHandler = {
         // the card is retrieved and then the callback function is called with the card
     },
     createNewBoard: function (callback) {
-        let datasda = {data:'datas'};
         // creates new board, saves it and calls the callback function with its data
-                this._api_post('/add-board', datasda, (response) => {
-                    console.log("in api_post");
-        this._data = response;
-        callback(response);
-        });
+                this._api_post('/add-board');
     },
     createNewCard: function (cardTitle, boardId, statusId, callback) {
         // creates new card, saves it and calls the callback function with its data

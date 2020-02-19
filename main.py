@@ -40,14 +40,18 @@ def get_cards_for_board(board_id: int):
 @app.route("/add-board", methods=['GET', 'POST'])
 @json_response
 def add_board():
-    print("in add-board")
-    new = data_handler2.add_new_board()
-    print(new)
-    return new
+    if request.method == 'POST':
+        print("in add-board")
+        print("hjeloooo")
+        return 'hello?'
+    else:
+        return 'server get'
+
 
 def main():
     app.run(debug=True,
-            host='0.0.0.0')
+            host='0.0.0.0',
+            port=5002)
 
     # Serving the favicon
     with app.app_context():
