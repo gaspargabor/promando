@@ -1,5 +1,6 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, jsonify, render_template, url_for, request, redirect
 from util import json_response
+import json
 
 import data_handler
 import data_handler2
@@ -74,14 +75,15 @@ def delete_board(board_id):
 
 @app.route('/add-card', methods=['GET', 'POST'])
 @json_response
-def add_new_card(data):
+def add_new_card():
     if request.method == 'POST':
+        data = request.get_json()
         return data_handler2.add_new_card(data)
 
 
 def main():
     app.run(debug=True,
-            host='10.44.4.84',
+            host='0.0.0.0',
             port=5002)
 
     # Serving the favicon

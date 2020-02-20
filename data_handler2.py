@@ -73,7 +73,6 @@ def add_new_board(cursor):
                     VALUES (%(new_board)s)
                     """, {'new_board': 'new_board'})
     board = get_newest_board()
-    print(board['id'])
     if not board:
         new_board = 'Board ' + '1'
     else:
@@ -126,18 +125,13 @@ def get_newest_card(cursor):
                     LIMIT 1
                     """)
     last_card = cursor.fetchone()
-    print(last_card)
     return last_card
 
 
 @database_common.connection_handler
 def add_new_card(cursor, data):
-    print("add new card sql")
-    print(data)
-
-    '''cursor.execute("""
+    cursor.execute("""
                     INSERT INTO cards(board_id, title, status_id)
                      VALUES (%(board_id)s, %(title)s, %(status_id)s)""",
-                   {'board_id': board_id, 'title': title, 'status_id': status_id})
-    last_card = get_newest_card()
-    return last_card'''
+                   {'board_id': data['board_id'], 'title': data['title'], 'status_id': data['status_id']})
+    return get_newest_card()

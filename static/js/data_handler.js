@@ -35,12 +35,11 @@ export let dataHandler = {
     _api_post2: function (url, data, callback) {
         // it is not called from outside
         // sends the data to the API, and calls callback function
-
         fetch(url, {
           method: "POST",
           headers: { 'Accept': 'application/json',
               'Content-Type': 'application/json' },
-          body: JSON.stringify({ data: 'data' })
+          body: JSON.stringify( data )
         })
           .then(response => response.json())
             .then(data => callback(data))
@@ -97,12 +96,13 @@ export let dataHandler = {
     },
     createNewCard: function (data, callback) {
         // creates new card, saves it and calls the callback function with its data
+        console.log('in create new card dh js');
         this._api_post2('/add-card', data, callback)
     },
     // here comes more features
     deleteBoard: function (boardId, callback) {
         this._api_post('/delete-board/' + boardId, response => {
-            this._data = response
+            this._data = response;
             callback(response)
         })
     }
