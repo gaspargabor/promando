@@ -51,6 +51,32 @@ def get_cards():
     """
     return data_handler2.get_cards()
 
+@app.route("/update-title/<board_id>", methods=['GET', 'POST'])
+@json_response
+def update_title(board_id):
+    if request.method == "POST":
+        print('inserver')
+        req = request.get_json()
+        print(req)
+        data_handler2.update_title(board_id, req)
+        return 'something'
+
+@app.route("/update-column-title/<status_id>", methods=['GET', 'POST'])
+@json_response
+def update_column_title(status_id):
+    if request.method == "POST":
+        req = request.get_json()
+        data_handler2.update_column_title(status_id, req)
+        return 'something'
+
+@app.route("/update-card-title/<card_id>", methods=['GET', 'POST'])
+@json_response
+def update_card_title(card_id):
+    if request.method == "POST":
+        req = request.get_json()
+        data_handler2.update_card_title(card_id, req)
+        return 'something'
+
 
 
 @app.route("/add-board", methods=['GET', 'POST'])

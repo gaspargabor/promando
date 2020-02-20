@@ -24,7 +24,7 @@ export let dataHandler = {
           method: "POST",
           headers: { 'Accept': 'application/json',
               'Content-Type': 'application/json' },
-          body: JSON.stringify({ data: 'data', hjelo: 'hjelo' })
+          body: JSON.stringify({ data: 'data' })
         })
           .then(response => response.json())
             .then(data => callback(data))
@@ -33,6 +33,24 @@ export let dataHandler = {
 
 
     },
+    _api_post2: function (url, data, callback) {
+        // it is not called from outside
+        // sends the data to the API, and calls callback function
+
+        fetch(url, {
+          method: "POST",
+          headers: { 'Accept': 'application/json',
+              'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        })
+          .then(response => response.json())
+            .then(data => callback(data))
+
+            ;
+
+
+    },
+
     init: function () {
     },
     getBoards: function (callback) {
@@ -83,7 +101,29 @@ export let dataHandler = {
     // here comes more features
     deleteBoard: function (boardId, callback) {
         this._api_post('/delete-board/' + boardId, response => {
-            this._data = response
+            this._data = response;
+            callback(response)
+        })
+    },
+
+    updateTitle: function(boardId,data, callback) {
+        this._api_post2('/update-title/' + boardId, data, response => {
+            this._data = response;
+            console.log('in apipost2');
+            callback(response)
+        })
+    },
+
+    updateColumnTitle: function(statusId,data, callback) {
+        this._api_post2('/update-column-title/' + statusId, data, response => {
+            this._data = response;
+            callback(response)
+        })
+    },
+
+    updateCardTitle: function(cardId,data, callback) {
+        this._api_post2('/update-card-title/' + cardId, data, response => {
+            this._data = response;
             callback(response)
         })
     }

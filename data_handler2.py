@@ -116,3 +116,31 @@ def add_default_stat(cursor):
                         INSERT INTO statuses(id, board_id, title)
                          VALUES (%(stat_id)s, %(board_id)s, %(default_title)s )""",
                        {'stat_id': stat_id, 'board_id': board['id'], 'default_title': statuses[i-1]})
+
+
+@database_common.connection_handler
+def update_title(cursor, board_id, new_title):
+    cursor.execute("""
+                    UPDATE board
+                    SET title = %(new_title)s
+                    WHERE id = %(board_id)s
+                     """,
+                   {'board_id': board_id, 'new_title': new_title})
+
+@database_common.connection_handler
+def update_column_title(cursor, status_id, new_title):
+    cursor.execute("""
+                    UPDATE statuses
+                    SET title = %(new_title)s
+                    WHERE id = %(status_id)s
+                     """,
+                   {'status_id': status_id, 'new_title': new_title})
+
+@database_common.connection_handler
+def update_card_title(cursor, card_id, new_title):
+    cursor.execute("""
+                    UPDATE cards
+                    SET title = %(new_title)s
+                    WHERE id = %(card_id)s
+                     """,
+                   {'card_id': card_id, 'new_title': new_title})

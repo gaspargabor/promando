@@ -1,6 +1,7 @@
 // It uses data_handler.js to visualize elements
 import { dataHandler } from "./data_handler.js";
 
+
 export let dom = {
     init: function () {
         // This function should run once, when the page is loaded.
@@ -16,7 +17,6 @@ export let dom = {
         // it adds necessary event listeners also
 
         for(let board of boards){
-            console.log(board.id);
                 dom.showBoard(board);
                 }
 
@@ -31,6 +31,17 @@ export let dom = {
             const boardTemplate = document.querySelector('#board-template');
             const clone = document.importNode(boardTemplate.content, true);
             clone.querySelector('.board-title').textContent = title;
+            clone.querySelector('.board-title').setAttribute('id', 'board-title'+board.id);
+            clone.querySelector('#board-title'+ board.id).addEventListener('click', function () {
+                console.log('onclick')
+            } );
+            clone.querySelector('#board-title'+ board.id).addEventListener('blur',  function(){
+                    let data = this.innerHTML;
+                    dataHandler.updateTitle(board.id, data, function (board) {
+                        dom.loadTitle(board)
+                    })
+
+            }) ;
             clone.querySelector('.board').setAttribute('id', 'board' + board.id);
             clone.querySelector('.board-columns').setAttribute('id', 'columns' + board.id);
             clone.querySelector('.delete-board').setAttribute('id', 'delete'+ board.id);
@@ -42,6 +53,8 @@ export let dom = {
                 })
             });
             return clone;
+
+
             };
             const singleBoard = createBoard(board.title);
             document.querySelector('#boards').appendChild(singleBoard);
@@ -59,6 +72,8 @@ export let dom = {
 
         },
 
+
+
         showStatuses: function(statuses){
 
 
@@ -69,6 +84,19 @@ export let dom = {
                     clone.querySelector('.board-column-title').textContent = title;
                     clone.querySelector('.board-column').setAttribute('id', 'board-col' + status.id);
                     clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +status.id);
+
+                    clone.querySelector('.board-column-title').setAttribute('id', 'board-column-title'+status.id);
+                    clone.querySelector('#board-column-title'+ status.id).addEventListener('click', function () {
+                        console.log('onclick')
+                    } );
+                    clone.querySelector('#board-column-title'+ status.id).addEventListener('blur',  function(){
+                            let data = this.innerHTML;
+                            dataHandler.updateColumnTitle(status.id, data, function (status) {
+                                dom.loadStatusTitle(status)
+                            })
+                    }) ;
+
+
                     return clone;
                     };
                     const singleCol = createColumn(status.title);
@@ -94,6 +122,18 @@ export let dom = {
             const cardTemplate = document.querySelector('#card-template');
             const clone = document.importNode(cardTemplate.content, true);
             clone.querySelector('.card-title').textContent = title;
+
+            clone.querySelector('.card-title').setAttribute('id', 'card-title'+card.id);
+            clone.querySelector('#card-title'+ card.id).addEventListener('click', function () {
+                console.log('onclick')
+            } );
+            clone.querySelector('#card-title'+ card.id).addEventListener('blur',  function(){
+                    let data = this.innerHTML;
+                    dataHandler.updateCardTitle(card.id, data, function (card) {
+                        dom.loadCardTitle(card)
+                    })
+            }) ;
+
             return clone;
             };
             const singleCol = createCard(card.title);
@@ -115,6 +155,23 @@ export let dom = {
             console.log('board id in delete board');
             console.log(board_id);
             document.querySelector('#board'+ board_id).remove();
+
+        },
+
+        loadTitle: function (board) {
+            let title = document.querySelector('#board-title' + board.id)
+            return title
+        },
+
+        loadStatusTitle: function (status) {
+            let column = document.querySelector('#board-column-title' + status.id);
+            return column
+
+        },
+
+        loadCardTitle: function (card) {
+            let cardtitle = document.querySelector('#card-title'+ card.id)
+            return cardtitle
 
         }
 
