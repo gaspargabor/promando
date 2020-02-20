@@ -110,7 +110,6 @@ export let dataHandler = {
     updateTitle: function(boardId,data, callback) {
         this._api_post2('/update-title/' + boardId, data, response => {
             this._data = response;
-            console.log('in apipost2');
             callback(response)
         })
     },
@@ -122,10 +121,9 @@ export let dataHandler = {
         })
     },
 
-    updateCardTitle: function(cardId,data, callback) {
+    updateCardTitle: function(cardId,data) {
         this._api_post2('/update-card-title/' + cardId, data, response => {
             this._data = response;
-            callback(response)
         })
     }
 

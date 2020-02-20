@@ -82,7 +82,7 @@ export let dom = {
                 clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +status.id);
                 clone.querySelector('.board-column-title').setAttribute('id', 'board-column-title'+status.id);
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('click', function () {
-                    console.log('onclick')
+                    console.log('onclick');
                 } );
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('blur',  function(){
                         let data = this.innerHTML;
@@ -122,9 +122,13 @@ export let dom = {
             } );
             clone.querySelector('#card-title'+ card.id).addEventListener('blur',  function(){
                     let data = this.innerHTML;
-                    dataHandler.updateCardTitle(card.id, data, function (card) {
-                        dom.loadCardTitle(card)
-                    })
+                        if ( data ) {
+                            dom.loadCardTitle(card.id, data);
+                            dataHandler.updateCardTitle(card.id, data)
+                        }
+                       else {
+                        dom.loadCardTitle(card.id, card.title);}
+
             }) ;
             clone.querySelector('.card').setAttribute('id', 'card' + card.id);
                 return clone;
@@ -178,8 +182,8 @@ export let dom = {
 
         },
 
-        loadCardTitle: function (card) {
-            return document.querySelector('#card-title'+ card.id);
+        loadCardTitle: function (card_id, card) {
+            return document.querySelector('#card-title'+ card_id).textContent = card;
 
         }
 
