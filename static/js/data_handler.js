@@ -107,17 +107,15 @@ export let dataHandler = {
         })
     },
 
-    updateTitle: function(boardId,data, callback) {
+    updateTitle: function(boardId,data) {
         this._api_post2('/update-title/' + boardId, data, response => {
             this._data = response;
-            callback(response)
         })
     },
 
-    updateColumnTitle: function(statusId,data, callback) {
+    updateColumnTitle: function(statusId,data) {
         this._api_post2('/update-column-title/' + statusId, data, response => {
             this._data = response;
-            callback(response)
         })
     },
 

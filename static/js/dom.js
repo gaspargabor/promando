@@ -40,9 +40,13 @@ export let dom = {
             } );
             clone.querySelector('#board-title'+ board.id).addEventListener('blur',  function(){
                     let data = this.innerHTML;
-                    dataHandler.updateTitle(board.id, data, function (board) {
-                        dom.loadTitle(board)
-                    })
+                     if ( data ) {
+                            dom.loadTitle(board.id, data);
+                            dataHandler.updateTitle(board.id, data)
+                        }
+                       else {
+                        dom.loadTitle(board.id, board.title);}
+
 
             }) ;
             clone.querySelector('.board').setAttribute('id', 'board' + board.id);
@@ -103,9 +107,13 @@ export let dom = {
                 } );
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('blur',  function(){
                         let data = this.innerHTML;
-                        dataHandler.updateColumnTitle(status.id, data, function (status) {
-                            dom.loadStatusTitle(status)
-                        })
+                        if ( data ) {
+                            console.log('in stat fiszem if');
+                            dom.loadStatusTitle(status.id, data);
+                            dataHandler.updateColumnTitle(status.id, data)
+                        }
+                       else {
+                        dom.loadStatusTitle(status.id, status.title);}
                 }) ;
                 return clone;
             };
@@ -203,12 +211,12 @@ export let dom = {
         const singleCol = createCard();
         document.querySelector('#board-col-cont' + card.board_id + card.status_id).appendChild(singleCol);
     },
-            loadTitle: function (board) {
-                return document.querySelector('#board-title' + board.id);
+        loadTitle: function (board_id, board) {
+                return document.querySelector('#board-title' + board_id).textContent = board;
         },
 
-        loadStatusTitle: function (status) {
-            return document.querySelector('#board-column-title' + status.id);
+        loadStatusTitle: function (status_id, status) {
+            return document.querySelector('#board-column-title' + status_id).textContent = status;
 
         },
 
