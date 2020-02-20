@@ -55,9 +55,7 @@ def get_cards():
 @json_response
 def update_title(board_id):
     if request.method == "POST":
-        print('inserver')
         req = request.get_json()
-        print(req)
         data_handler2.update_title(board_id, req)
         return 'something'
 

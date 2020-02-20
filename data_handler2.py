@@ -28,6 +28,7 @@ def get_statuses(cursor, board_id):
     cursor.execute("""
                     SELECT * FROM statuses
                     WHERE board_id= %(board_id)s
+                    Order by id
                         """, {'board_id': board_id})
     statuses = cursor.fetchall()
     return statuses
@@ -54,8 +55,6 @@ def get_cards(cursor):
     return cards
 
 
-
-
 @database_common.connection_handler
 def get_newest_board(cursor):
     cursor.execute("""
@@ -65,6 +64,8 @@ def get_newest_board(cursor):
                     """)
     last_board = cursor.fetchone()
     return last_board
+
+
 
 @database_common.connection_handler
 def add_new_board(cursor):
@@ -129,12 +130,17 @@ def update_title(cursor, board_id, new_title):
 
 @database_common.connection_handler
 def update_column_title(cursor, status_id, new_title):
+
     cursor.execute("""
                     UPDATE statuses
                     SET title = %(new_title)s
                     WHERE id = %(status_id)s
                      """,
                    {'status_id': status_id, 'new_title': new_title})
+
+
+
+
 
 @database_common.connection_handler
 def update_card_title(cursor, card_id, new_title):
