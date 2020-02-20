@@ -1,5 +1,5 @@
 // It uses data_handler.js to visualize elements
-import { dataHandler } from "./data_handler.js";
+import {dataHandler} from "./data_handler.js";
 
 
 export let dom = {
@@ -82,7 +82,7 @@ export let dom = {
                 clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +status.id);
                 clone.querySelector('.board-column-title').setAttribute('id', 'board-column-title'+status.id);
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('click', function () {
-                    console.log('onclick')
+                    console.log('onclick');
                 } );
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('blur',  function(){
                         let data = this.innerHTML;
@@ -119,14 +119,18 @@ export let dom = {
                 clone.querySelector('.card-title').textContent = card.title;
             clone.querySelector('.card-title').setAttribute('id', 'card-title'+card.id);
             clone.querySelector('#card-title'+ card.id).addEventListener('click', function () {
-                console.log('onclick')
             } );
             clone.querySelector('#card-title'+ card.id).addEventListener('blur',  function(){
                     let data = this.innerHTML;
-                    dataHandler.updateCardTitle(card.id, data, function (card) {
-                        dom.loadCardTitle(card)
-                    })
+                        if ( data ) {
+                            dom.loadCardTitle(card.id, data);
+                            dataHandler.updateCardTitle(card.id, data)
+                        }
+                       else {
+                        dom.loadCardTitle(card.id, card.title);}
+
             }) ;
+            clone.querySelector('.card').setAttribute('id', 'card' + card.id);
                 return clone;
             };
             const singleCard = createCard();
@@ -163,25 +167,23 @@ export let dom = {
             const cardTemplate = document.querySelector('#card-template');
             const clone = document.importNode(cardTemplate.content, true);
             clone.querySelector('.card-title').textContent = card.title;
+            clone.querySelector('.card').setAttribute('id', 'card' + card.id);
             return clone;
         };
         const singleCol = createCard();
         document.querySelector('#board-col-cont' + card.board_id + card.status_id).appendChild(singleCol);
     },
             loadTitle: function (board) {
-            let title = document.querySelector('#board-title' + board.id)
-            return title
+                return document.querySelector('#board-title' + board.id);
         },
 
         loadStatusTitle: function (status) {
-            let column = document.querySelector('#board-column-title' + status.id);
-            return column
+            return document.querySelector('#board-column-title' + status.id);
 
         },
 
-        loadCardTitle: function (card) {
-            let cardtitle = document.querySelector('#card-title'+ card.id)
-            return cardtitle
+        loadCardTitle: function (card_id, card) {
+            return document.querySelector('#card-title'+ card_id).textContent = card;
 
         }
 

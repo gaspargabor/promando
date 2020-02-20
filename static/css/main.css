@@ -119,17 +119,77 @@ h1 {
   cursor: pointer; }
 
 .card-title {
-  padding-right: 16px; }
+  margin-right: 50px; }
 
 button {
-  background-color: #222;
+  background-color: #333333;
   color: #fff;
   border: none;
   font-size: 14px;
   font-family: 'Montserrat', sans-serif;
-  padding: 4px 10px; }
+  padding: 4px 10px;
+  border-radius: 4px; }
 
 button:hover {
   background-color: rgba(34, 34, 34, 0.9); }
+
+/* This is based on the work of Joshua Saunders */
+.board-layout {
+  background-color: #645ca5;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  display: grid;
+  grid-template-rows: max-content auto;
+  grid-gap: 10px;
+  padding: 10px;
+  height: 800px; }
+
+.list-layout {
+  display: grid;
+  grid-gap: 10px; }
+
+.board-text {
+  font-weight: bold;
+  font-size: 28px;
+  padding: 5px; }
+
+.board-lists {
+  display: grid;
+  grid-auto-columns: 275px;
+  grid-auto-flow: column;
+  grid-gap: 10px;
+  height: 400px; }
+
+.board-list {
+  background-color: #ebecf0;
+  border-radius: 3px;
+  display: grid;
+  grid-auto-rows: max-content;
+  grid-gap: 10px;
+  /* Chrome use a fixed height */
+  height: max-content;
+  padding: 10px; }
+
+.list-title {
+  font-size: 18px;
+  font-weight: bold; }
+
+.card {
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+  padding: 10px;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 90% 10%; }
+
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: inline-block;
+  grid-column: 2;
+  box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.5), -5px -6px 10px rgba(255, 255, 255, 0.2); }
 
 /*# sourceMappingURL=main.css.map */

@@ -58,7 +58,7 @@ def update_title(board_id):
     if request.method == "POST":
         req = request.get_json()
         data_handler2.update_title(board_id, req)
-        return 'something'
+        return req
 
 @app.route("/update-column-title/<status_id>", methods=['GET', 'POST'])
 @json_response
@@ -66,7 +66,7 @@ def update_column_title(status_id):
     if request.method == "POST":
         req = request.get_json()
         data_handler2.update_column_title(status_id, req)
-        return 'something'
+        return req
 
 @app.route("/update-card-title/<card_id>", methods=['GET', 'POST'])
 @json_response
@@ -74,7 +74,7 @@ def update_card_title(card_id):
     if request.method == "POST":
         req = request.get_json()
         data_handler2.update_card_title(card_id, req)
-        return 'something'
+        return req
 
 
 @app.route("/add-board", methods=['GET', 'POST'])
@@ -108,7 +108,7 @@ def add_new_card():
 def main():
     app.run(debug=True,
             host='0.0.0.0',
-            port=5002)
+            port=6002)
 
     # Serving the favicon
     with app.app_context():
