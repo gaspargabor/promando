@@ -83,7 +83,7 @@ def add_new_card():
 
 def main():
     app.run(debug=True,
-            host='0.0.0.0',
+            host='10.44.4.84',
             port=5002)
 
     # Serving the favicon

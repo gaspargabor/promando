@@ -22,10 +22,18 @@ body {
 
 $desktop: 840px;
 
+$phone: 500px;
+
 @mixin desktop {
     @media (min-width: #{$desktop}) {
         @content;
     }
+}
+
+@mixin phone {
+  @media (max-width: #{$phone}) {
+    @content;
+  }
 }
 
 h1{
@@ -33,6 +41,9 @@ h1{
     font-size: 4em;
     letter-spacing: 5px;
     font-weight: 400;
+    @include phone{
+      font-size: 3em;
+    }
 }
 
 #boards {
@@ -54,10 +65,17 @@ h1{
     .board-header{
     height: 50px;
     background: #fff;
+      @include phone {
+        height: min-content;
+      }
+
       .board-title{
     margin: 13px;
     display: inline-block;
     font-size: 20px;
+        @include phone {
+          margin: 10px;
+        }
 }
       .board-title, .board-add, .board-toggle{
     display: inline-block;
@@ -65,6 +83,9 @@ h1{
       .board-toggle{
     float: right;
     margin: 13px;
+        @include phone {
+          margin: 10px;
+        }
 }
 }
 }
@@ -78,14 +99,20 @@ h1{
 
 .board-column{
     padding: 10px;
-    flex: 2;
+    flex: 1;
     min-width: 250px;
     max-width: 300px;
     margin: 5px auto;
+  @include phone {
+    padding: 5px;
+  }
 }
 
 .board-column-content{
     min-height: 49px;
+  @include phone {
+    min-height: 30px;
+  }
 }
 
 .board-column-content:empty{
@@ -139,10 +166,14 @@ h1{
 }
 
 button{
-    background: #222;
+    background-color: #222;
     color: #fff;
     border: none;
     font-size: 14px;
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
     padding: 4px 10px;
+
 }
+button:hover {
+    background-color: rgba(34, 34, 34, .9);
+  }
