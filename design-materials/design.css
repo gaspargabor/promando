@@ -24,13 +24,16 @@ h1{
 }
 
 button{
-    background: #222;
+    background: #30799B;
     color: #fff;
     border: none;
     font-size: 14px;
     font-family: sans-serif;
     padding: 4px 10px;
+    border-radius: 4px;
 }
+
+
 
 .board-container{
     max-width: 960px;
