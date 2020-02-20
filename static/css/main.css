@@ -119,15 +119,16 @@ h1 {
   cursor: pointer; }
 
 .card-title {
-  padding-right: 16px; }
+  margin-right: 50px; }
 
 button {
-  background-color: #222;
+  background-color: #333333;
   color: #fff;
   border: none;
   font-size: 14px;
   font-family: 'Montserrat', sans-serif;
-  padding: 4px 10px; }
+  padding: 4px 10px;
+  border-radius: 4px; }
 
 button:hover {
   background-color: rgba(34, 34, 34, 0.9); }
@@ -178,6 +179,16 @@ button:hover {
   border-radius: 3px;
   box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
   padding: 10px;
-  cursor: pointer; }
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 90% 10%; }
+
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  display: inline-block;
+  grid-column: 2; }
 
 /*# sourceMappingURL=main.css.map */

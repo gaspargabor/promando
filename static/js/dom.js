@@ -1,5 +1,5 @@
 // It uses data_handler.js to visualize elements
-import { dataHandler } from "./data_handler.js";
+import {dataHandler} from "./data_handler.js";
 
 
 export let dom = {
@@ -170,19 +170,16 @@ export let dom = {
         document.querySelector('#board-col-cont' + card.board_id + card.status_id).appendChild(singleCol);
     },
             loadTitle: function (board) {
-            let title = document.querySelector('#board-title' + board.id)
-            return title
+                return document.querySelector('#board-title' + board.id);
         },
 
         loadStatusTitle: function (status) {
-            let column = document.querySelector('#board-column-title' + status.id);
-            return column
+            return document.querySelector('#board-column-title' + status.id);
 
         },
 
         loadCardTitle: function (card) {
-            let cardtitle = document.querySelector('#card-title'+ card.id)
-            return cardtitle
+            return document.querySelector('#card-title'+ card.id);
 
         }
 
