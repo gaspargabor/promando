@@ -119,7 +119,6 @@ export let dom = {
                 clone.querySelector('.card-title').textContent = card.title;
             clone.querySelector('.card-title').setAttribute('id', 'card-title'+card.id);
             clone.querySelector('#card-title'+ card.id).addEventListener('click', function () {
-                console.log('onclick')
             } );
             clone.querySelector('#card-title'+ card.id).addEventListener('blur',  function(){
                     let data = this.innerHTML;
@@ -127,6 +126,7 @@ export let dom = {
                         dom.loadCardTitle(card)
                     })
             }) ;
+            clone.querySelector('.card').setAttribute('id', 'card' + card.id);
                 return clone;
             };
             const singleCard = createCard();
