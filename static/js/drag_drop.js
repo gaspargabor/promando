@@ -1,58 +1,32 @@
+
+
+
 function allowDrop(ev) {
-    ev.preventDefault();  // default is not to allow drop
+    ev.preventDefault();
   }
   function dragStart(ev) {
-    // The 'text/plain' is referring the Data Type (DOMString)
-    // of the Object being dragged.
-    // ev.target.id is the id of the Object being dragged
-      console.log('start drag');
     ev.dataTransfer.setData("text/plain", ev.target.id);
   }
   function dropIt(ev) {
-    ev.preventDefault();  // default is not to allow drop
+    ev.preventDefault();
     let sourceId = ev.dataTransfer.getData("text/plain");
-    console.log(sourceId);
     let sourceIdEl=document.getElementById(sourceId);
-    console.log(sourceIdEl);
     let sourceIdParentEl=sourceIdEl.parentElement;
-    console.log(sourceIdParentEl);
-    // ev.target.id here is the id of target Object of the drop
     let targetEl=document.getElementById(ev.target.id);
     let targetParentEl=targetEl.parentElement;
-    console.log(targetEl);
-    console.log(targetParentEl);
 
-    // Compare List names to see if we are going between lists
-    // or within the same list
     if (targetParentEl.id!==sourceIdParentEl.id){
-// If the source and destination have the same
-        // className (card), then we risk dropping a Card in to a Card
-        // That may be a cool feature, but not for us!
         if (targetEl.className === sourceIdEl.className ){
-          // Append to parent Object (list), not to a
-          // Card in the list
-          // This is in case you drag and drop a Card on top
-          // of a Card in a different list
            targetParentEl.appendChild(sourceIdEl);
 
         }else{
-            // Append to the list
              targetEl.appendChild(sourceIdEl);
 
         }
 
     }else{
-        // Same list. Swap the text of the two cards
-        // Just like swapping the values in two variables
-
-        // Temporary holder of the destination Object
-        let holder=targetEl;
-        // The text of the destination Object.
-        // We are really just moving the text, not the Card
-        let holderText=holder.textContent;
-        // Replace the destination Objects text with the sources text
+        let holderText=targetEl.textContent;
         targetEl.textContent=sourceIdEl.textContent;
-        // Replace the sources text with the original destinations
         sourceIdEl.textContent=holderText;
         holderText='';
 }
