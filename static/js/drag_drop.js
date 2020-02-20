@@ -11,10 +11,10 @@ function allowDrop(ev) {
   function dropIt(ev) {
     ev.preventDefault();  // default is not to allow drop
     let sourceId = ev.dataTransfer.getData("text/plain");
-    let sourceIdEl=document.getElementById(sourceId);
-    let sourceIdParentEl=sourceIdEl.parentElement;
     console.log(sourceId);
+    let sourceIdEl=document.getElementById(sourceId);
     console.log(sourceIdEl);
+    let sourceIdParentEl=sourceIdEl.parentElement;
     console.log(sourceIdParentEl);
     // ev.target.id here is the id of target Object of the drop
     let targetEl=document.getElementById(ev.target.id);

@@ -163,6 +163,7 @@ export let dom = {
             const cardTemplate = document.querySelector('#card-template');
             const clone = document.importNode(cardTemplate.content, true);
             clone.querySelector('.card-title').textContent = card.title;
+            clone.querySelector('.card').setAttribute('id', 'card' + card.id);
             return clone;
         };
         const singleCol = createCard();
