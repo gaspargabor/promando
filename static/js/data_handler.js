@@ -95,8 +95,9 @@ export let dataHandler = {
 
 
     },
-    createNewCard: function (cardTitle, boardId, statusId, callback) {
+    createNewCard: function (data, callback) {
         // creates new card, saves it and calls the callback function with its data
+        this._api_post2('/add-card', data, callback)
     },
     // here comes more features
     deleteBoard: function (boardId, callback) {

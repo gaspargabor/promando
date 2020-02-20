@@ -55,6 +55,8 @@ def get_cards(cursor):
     return cards
 
 
+
+
 @database_common.connection_handler
 def get_newest_board(cursor):
     cursor.execute("""
@@ -65,8 +67,6 @@ def get_newest_board(cursor):
     last_board = cursor.fetchone()
     return last_board
 
-
-
 @database_common.connection_handler
 def add_new_board(cursor):
     cursor.execute("""
@@ -74,7 +74,6 @@ def add_new_board(cursor):
                     VALUES (%(new_board)s)
                     """, {'new_board': 'new_board'})
     board = get_newest_board()
-    print(board['id'])
     if not board:
         new_board = 'Board ' + '1'
     else:
@@ -117,6 +116,26 @@ def add_default_stat(cursor):
                         INSERT INTO statuses(id, board_id, title)
                          VALUES (%(stat_id)s, %(board_id)s, %(default_title)s )""",
                        {'stat_id': stat_id, 'board_id': board['id'], 'default_title': statuses[i-1]})
+
+
+@database_common.connection_handler
+def get_newest_card(cursor):
+    cursor.execute("""
+                    SELECT * FROM cards
+                    ORDER BY id DESC
+                    LIMIT 1
+                    """)
+    last_card = cursor.fetchone()
+    return last_card
+
+
+@database_common.connection_handler
+def add_new_card(cursor, data):
+    cursor.execute("""
+                    INSERT INTO cards(board_id, title, status_id)
+                     VALUES (%(board_id)s, %(title)s, %(status_id)s)""",
+                   {'board_id': data['board_id'], 'title': data['title'], 'status_id': data['status_id']})
+    return get_newest_card()
 
 
 @database_common.connection_handler

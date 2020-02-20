@@ -21,6 +21,9 @@ h1 {
   font-size: 4em;
   letter-spacing: 5px;
   font-weight: 400; }
+  @media (max-width: 500px) {
+    h1 {
+      font-size: 3em; } }
 
 #boards {
   width: 100%;
@@ -38,15 +41,24 @@ h1 {
     #boards section.board .board-header {
       height: 50px;
       background: #fff; }
+      @media (max-width: 500px) {
+        #boards section.board .board-header {
+          height: min-content; } }
       #boards section.board .board-header .board-title {
         margin: 13px;
         display: inline-block;
         font-size: 20px; }
+        @media (max-width: 500px) {
+          #boards section.board .board-header .board-title {
+            margin: 10px; } }
       #boards section.board .board-header .board-title, #boards section.board .board-header .board-add, #boards section.board .board-header .board-toggle {
         display: inline-block; }
       #boards section.board .board-header .board-toggle {
         float: right;
         margin: 13px; }
+        @media (max-width: 500px) {
+          #boards section.board .board-header .board-toggle {
+            margin: 10px; } }
 
 .board-columns {
   display: flex;
@@ -54,13 +66,19 @@ h1 {
 
 .board-column {
   padding: 10px;
-  flex: 2;
+  flex: 1;
   min-width: 250px;
   max-width: 300px;
   margin: 5px auto; }
+  @media (max-width: 500px) {
+    .board-column {
+      padding: 5px; } }
 
 .board-column-content {
   min-height: 49px; }
+  @media (max-width: 500px) {
+    .board-column-content {
+      min-height: 30px; } }
 
 .board-column-content:empty {
   /*This only works if the tag is really empty and there is not even whitespace inside*/
@@ -104,11 +122,14 @@ h1 {
   padding-right: 16px; }
 
 button {
-  background: #222;
+  background-color: #222;
   color: #fff;
   border: none;
   font-size: 14px;
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
   padding: 4px 10px; }
+
+button:hover {
+  background-color: rgba(34, 34, 34, 0.9); }
 
 /*# sourceMappingURL=main.css.map */
