@@ -28,11 +28,29 @@ export let dataHandler = {
         })
           .then(response => response.json())
             .then(data => callback(data))
+        ;
+    },
+
+
+    _api_post2: function (url, data, callback) {
+        // it is not called from outside
+        // sends the data to the API, and calls callback function
+
+        fetch(url, {
+          method: "POST",
+          headers: { 'Accept': 'application/json',
+              'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: 'data' })
+        })
+          .then(response => response.json())
+            .then(data => callback(data))
 
             ;
 
 
     },
+
+
     init: function () {
     },
     getBoards: function (callback) {
@@ -77,8 +95,9 @@ export let dataHandler = {
 
 
     },
-    createNewCard: function (cardTitle, boardId, statusId, callback) {
+    createNewCard: function (data, callback) {
         // creates new card, saves it and calls the callback function with its data
+        this._api_post2('/add-card', data, callback)
     },
     // here comes more features
     deleteBoard: function (boardId, callback) {

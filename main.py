@@ -52,7 +52,6 @@ def get_cards():
     return data_handler2.get_cards()
 
 
-
 @app.route("/add-board", methods=['GET', 'POST'])
 @json_response
 def add_board():
@@ -63,6 +62,7 @@ def add_board():
     else:
         return 'server get'
 
+
 @app.route("/delete-board/<board_id>", methods=['GET', 'POST'])
 @json_response
 def delete_board(board_id):
@@ -72,9 +72,16 @@ def delete_board(board_id):
         data_handler2.delete_board(board_id)
 
 
+@app.route('/add-card', methods=['GET', 'POST'])
+@json_response
+def add_new_card(data):
+    if request.method == 'POST':
+        return data_handler2.add_new_card(data)
+
+
 def main():
     app.run(debug=True,
-            host='0.0.0.0',
+            host='10.44.4.84',
             port=5002)
 
     # Serving the favicon

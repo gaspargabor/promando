@@ -116,3 +116,28 @@ def add_default_stat(cursor):
                         INSERT INTO statuses(id, board_id, title)
                          VALUES (%(stat_id)s, %(board_id)s, %(default_title)s )""",
                        {'stat_id': stat_id, 'board_id': board['id'], 'default_title': statuses[i-1]})
+
+
+@database_common.connection_handler
+def get_newest_card(cursor):
+    cursor.execute("""
+                    SELECT * FROM cards
+                    ORDER BY id DESC
+                    LIMIT 1
+                    """)
+    last_card = cursor.fetchone()
+    print(last_card)
+    return last_card
+
+
+@database_common.connection_handler
+def add_new_card(cursor, data):
+    print("add new card sql")
+    print(data)
+
+    '''cursor.execute("""
+                    INSERT INTO cards(board_id, title, status_id)
+                     VALUES (%(board_id)s, %(title)s, %(status_id)s)""",
+                   {'board_id': board_id, 'title': title, 'status_id': status_id})
+    last_card = get_newest_card()
+    return last_card'''
