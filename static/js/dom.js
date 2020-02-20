@@ -33,6 +33,7 @@ export let dom = {
             const boardTemplate = document.querySelector('#board-template');
             const clone = document.importNode(boardTemplate.content, true);
             clone.querySelector('.board-title').textContent = title;
+
             clone.querySelector('.board-title').setAttribute('id', 'board-title'+board.id);
             clone.querySelector('#board-title'+ board.id).addEventListener('click', function () {
                 console.log('onclick')
@@ -46,6 +47,22 @@ export let dom = {
             }) ;
             clone.querySelector('.board').setAttribute('id', 'board' + board.id);
             clone.querySelector('.board-columns').setAttribute('id', 'columns' + board.id);
+            /*clone.querySelector('.board-columns').setAttribute('id', 'board_columns' + board.id);*/
+            let columns = clone.querySelector('#columns' + board.id);
+            console.log( board.id)
+            clone.querySelector('.board-toggle').setAttribute('id', 'toggle'+ board.id);
+            let toggle = clone.querySelector('#toggle' + board.id)
+            clone.querySelector('#toggle' + board.id).addEventListener('click', function () {
+                console.log('columns');
+                if (columns.style.display === "none") {
+                    toggle.textContent = '-'
+                columns.style.display = "flex";
+              } else {
+                    toggle.textContent = 'V'
+                columns.style.display = "none";
+              }
+
+            });
             clone.querySelector('.delete-board').setAttribute('id', 'delete'+ board.id);
             clone.querySelector('#delete' + board.id).addEventListener('click', function () {
                 dataHandler.deleteBoard(board.id, function () {
