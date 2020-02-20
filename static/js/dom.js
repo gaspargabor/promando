@@ -47,13 +47,11 @@ export let dom = {
         };
         const singleBoard = createBoard(board.title);
         document.querySelector('#boards').appendChild(singleBoard);
-        console.log('calling load STATUSES from show board');
         dom.loadStatuses(board.id);
         return "done";
     },
 
     loadStatuses: function(board_id) {
-        console.log("load statuses");
         dataHandler.getStatuses(board_id, function (statuses) {
 
             dom.showStatuses(statuses);
@@ -61,7 +59,6 @@ export let dom = {
     },
 
     showStatuses: function(statuses){
-        console.log("show statuses");
 
         for (let status of statuses) {
             const createColumn = function(title){
@@ -81,7 +78,6 @@ export let dom = {
     },
 
     loadCards: function () {
-        console.log("load cardS");
         // retrieves cards and makes showCards called
         dataHandler.getCardsByBoardId(function(cards){
             if (cards) {
@@ -92,7 +88,6 @@ export let dom = {
         });
     },
     showCards: function (cards) {
-        console.log('show cardS');
         // shows the cards of a board
         // it adds necessary event listeners also
         for (let card of cards) {
@@ -103,7 +98,6 @@ export let dom = {
                 return clone;
             };
             const singleCard = createCard();
-            console.log('#board-col-cont' + card.board_id + card.status_id);
             document.querySelector('#board-col-cont' + card.board_id + card.status_id).appendChild(singleCard);
         }
     },
@@ -125,7 +119,6 @@ export let dom = {
     },
 
     addCard: function (board_id) {
-        console.log('add card');
         let status_id = 1;
         let data = {board_id: board_id, title: 'new card', status_id: status_id};
         dataHandler.createNewCard(data, function (card) {
@@ -134,7 +127,6 @@ export let dom = {
     },
     
     showCard: function (card) {
-        console.log('show card');
         const createCard = function() {
             const cardTemplate = document.querySelector('#card-template');
             const clone = document.importNode(cardTemplate.content, true);

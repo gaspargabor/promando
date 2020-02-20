@@ -96,7 +96,6 @@ export let dataHandler = {
     },
     createNewCard: function (data, callback) {
         // creates new card, saves it and calls the callback function with its data
-        console.log('in create new card dh js');
         this._api_post2('/add-card', data, callback)
     },
     // here comes more features
