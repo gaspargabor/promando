@@ -39,6 +39,7 @@ export let dom = {
             } );
             clone.querySelector('#board-title'+ board.id).addEventListener('blur',  function(){
                     let data = this.innerHTML;
+                    console.log(data);
                     dataHandler.updateTitle(board.id, data, function (board) {
                         dom.loadTitle(board)
                     })
@@ -122,6 +123,7 @@ export let dom = {
             } );
             clone.querySelector('#card-title'+ card.id).addEventListener('blur',  function(){
                     let data = this.innerHTML;
+                    console.log(data);
                     dataHandler.updateCardTitle(card.id, data, function (card) {
                         dom.loadCardTitle(card)
                     })

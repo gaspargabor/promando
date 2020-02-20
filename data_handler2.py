@@ -161,6 +161,8 @@ def update_column_title(cursor, status_id, new_title):
 
 
 
+
+
 @database_common.connection_handler
 def update_card_title(cursor, card_id, new_title):
     cursor.execute("""
