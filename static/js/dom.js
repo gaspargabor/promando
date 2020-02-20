@@ -184,6 +184,19 @@ export let dom = {
             const cardTemplate = document.querySelector('#card-template');
             const clone = document.importNode(cardTemplate.content, true);
             clone.querySelector('.card-title').textContent = card.title;
+            clone.querySelector('.card-title').setAttribute('id', 'card-title'+card.id);
+            clone.querySelector('#card-title'+ card.id).addEventListener('click', function () {
+            } );
+            clone.querySelector('#card-title'+ card.id).addEventListener('blur',  function(){
+                    let data = this.innerHTML;
+                        if ( data ) {
+                            dom.loadCardTitle(card.id, data);
+                            dataHandler.updateCardTitle(card.id, data)
+                        }
+                       else {
+                        dom.loadCardTitle(card.id, card.title);}
+
+            }) ;
             clone.querySelector('.card').setAttribute('id', 'card' + card.id);
             return clone;
         };
