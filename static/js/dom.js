@@ -53,11 +53,10 @@ export let dom = {
             clone.querySelector('.board-columns').setAttribute('id', 'columns' + board.id);
             /*clone.querySelector('.board-columns').setAttribute('id', 'board_columns' + board.id);*/
             let columns = clone.querySelector('#columns' + board.id);
-            console.log( board.id)
             clone.querySelector('.board-toggle').setAttribute('id', 'toggle'+ board.id);
             let toggle = clone.querySelector('#toggle' + board.id)
             clone.querySelector('#toggle' + board.id).addEventListener('click', function () {
-                console.log('columns');
+
             let firstchild = toggle.firstChild
                 if (columns.style.display === "none") {
                 columns.style.display = "flex";
@@ -218,6 +217,12 @@ export let dom = {
                         dom.loadCardTitle(card.id, card.title);}
 
             }) ;
+            clone.querySelector('.delete-card').setAttribute('id', 'delete'+ card.id);
+            clone.querySelector('#delete' + card.id).addEventListener('click', function () {
+                dataHandler.deleteCard(card.id, function () {
+                dom.deleteCard(card.id);
+                })
+            });
             clone.querySelector('.card').setAttribute('id', 'card' + card.id);
             return clone;
         };
