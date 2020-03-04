@@ -58,12 +58,14 @@ export let dom = {
             let toggle = clone.querySelector('#toggle' + board.id)
             clone.querySelector('#toggle' + board.id).addEventListener('click', function () {
                 console.log('columns');
+            let firstchild = toggle.firstChild
                 if (columns.style.display === "none") {
-                    toggle.textContent = '-'
                 columns.style.display = "flex";
+                firstchild.classList = "fas fa-chevron-up"
               } else {
-                    toggle.textContent = 'V'
+
                 columns.style.display = "none";
+                firstchild.classList = "fas fa-chevron-down"
               }
 
             });
