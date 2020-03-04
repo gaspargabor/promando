@@ -171,3 +171,13 @@ def update_card_title(cursor, card_id, new_title):
                     WHERE id = %(card_id)s
                      """,
                    {'card_id': card_id, 'new_title': new_title})
+
+
+@database_common.connection_handler
+def update_card_position(cursor, card_id, new_col):
+    cursor.execute("""
+                    UPDATE cards
+                    SET status_id = %(new_col)s
+                    WHERE id = %(card_id)s
+                     """,
+                   {'card_id': card_id, 'new_col': new_col})

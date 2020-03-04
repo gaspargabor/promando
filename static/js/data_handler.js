@@ -123,6 +123,11 @@ export let dataHandler = {
         this._api_post2('/update-card-title/' + cardId, data, response => {
             this._data = response;
         })
+    },
+
+    saveDropPosition: function (colId, callback) {
+        let statusId = colId.slice(-1);
+        this._api_post2("/save-drop", statusId, callback)
     }
 
 

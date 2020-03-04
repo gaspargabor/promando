@@ -105,10 +105,20 @@ def add_new_card():
         return data_handler2.add_new_card(data)
 
 
+@app.route('/save-drop', methods=['GET', 'POST'])
+@json_response
+def save_drop():
+    if request.method == 'POST':
+        data = request.get_json()
+        print(data['card'], data['colId'])
+        data_handler2.update_card_position(data['card'], data['colId'])
+        return "kk"
+
+
 def main():
     app.run(debug=True,
             host='0.0.0.0',
-            port=7002)
+            port=5000)
 
     # Serving the favicon
     with app.app_context():
