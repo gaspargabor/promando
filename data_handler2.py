@@ -11,6 +11,7 @@ def get_card_status(cursor, status_id):
     status_id = cursor.fetchone()
     return status_id
 
+
 @database_common.connection_handler
 def get_boards(cursor):
     cursor.execute("""
@@ -22,9 +23,9 @@ def get_boards(cursor):
     boards = cursor.fetchall()
     return boards
 
+
 @database_common.connection_handler
 def get_statuses(cursor, board_id):
-
     cursor.execute("""
                     SELECT * FROM statuses
                     WHERE board_id= %(board_id)s
@@ -32,6 +33,7 @@ def get_statuses(cursor, board_id):
                         """, {'board_id': board_id})
     statuses = cursor.fetchall()
     return statuses
+
 
 @database_common.connection_handler
 def get_cards_for_board(cursor, board_id):
@@ -47,14 +49,21 @@ def get_cards_for_board(cursor, board_id):
 
 
 @database_common.connection_handler
+def get_cards_by_boardId(cursor, board_id):
+    cursor.execute("""
+                    SELECT id, board_id, title, status_id from cards
+                    WHERE board_id = %(board_id)s""",
+                   {'board_id': board_id})
+    cards = cursor.fetchall()
+    return cards
+
+@database_common.connection_handler
 def get_cards(cursor):
     cursor.execute("""
                     SELECT * FROM cards
                     """)
     cards = cursor.fetchall()
     return cards
-
-
 
 
 @database_common.connection_handler
@@ -66,6 +75,7 @@ def get_newest_board(cursor):
                     """)
     last_board = cursor.fetchone()
     return last_board
+
 
 @database_common.connection_handler
 def add_new_board(cursor):
@@ -84,6 +94,7 @@ def add_new_board(cursor):
                     WHERE board.id=%(board_id)s;
                     """, {'new_board': new_board, 'board_id': board['id']})
 
+
 @database_common.connection_handler
 def delete_card_by_boardid(cursor, board_id):
     cursor.execute("""
@@ -91,12 +102,14 @@ def delete_card_by_boardid(cursor, board_id):
                     WHERE board_id = %(board_id)s""",
                    {'board_id': board_id})
 
+
 @database_common.connection_handler
 def delete_status_by_boardid(cursor, board_id):
     cursor.execute("""
                     DELETE FROM statuses
                     WHERE board_id = %(board_id)s""",
                    {'board_id': board_id})
+
 
 @database_common.connection_handler
 def delete_board(cursor, board_id):
@@ -115,13 +128,13 @@ def add_default_stat(cursor):
         cursor.execute("""
                         INSERT INTO statuses(id, board_id, title)
                          VALUES (%(stat_id)s, %(board_id)s, %(default_title)s )""",
-                       {'stat_id': stat_id, 'board_id': board['id'], 'default_title': statuses[i-1]})
+                       {'stat_id': stat_id, 'board_id': board['id'], 'default_title': statuses[i - 1]})
 
 
 @database_common.connection_handler
 def get_newest_card(cursor):
     cursor.execute("""
-                    SELECT * FROM cards
+                    SELECT id, board_id, title, status_id, "order" FROM cards
                     ORDER BY id DESC
                     LIMIT 1
                     """)
@@ -147,20 +160,15 @@ def update_title(cursor, board_id, new_title):
                      """,
                    {'board_id': board_id, 'new_title': new_title})
 
+
 @database_common.connection_handler
 def update_column_title(cursor, status_id, new_title):
-
     cursor.execute("""
                     UPDATE statuses
                     SET title = %(new_title)s
                     WHERE id = %(status_id)s
                      """,
                    {'status_id': status_id, 'new_title': new_title})
-
-
-
-
-
 
 
 @database_common.connection_handler

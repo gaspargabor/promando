@@ -21,7 +21,6 @@ export let dom = {
         for(let board of boards){
             dom.showBoard(board);
         }
-        dom.loadCards();
     },
 
 
@@ -53,11 +52,11 @@ export let dom = {
             clone.querySelector('.board-columns').setAttribute('id', 'columns' + board.id);
             /*clone.querySelector('.board-columns').setAttribute('id', 'board_columns' + board.id);*/
             let columns = clone.querySelector('#columns' + board.id);
-            console.log( board.id)
+
             clone.querySelector('.board-toggle').setAttribute('id', 'toggle'+ board.id);
             let toggle = clone.querySelector('#toggle' + board.id)
             clone.querySelector('#toggle' + board.id).addEventListener('click', function () {
-                console.log('columns');
+
                 if (columns.style.display === "none") {
                     toggle.textContent = '-'
                 columns.style.display = "flex";
@@ -82,6 +81,7 @@ export let dom = {
         const singleBoard = createBoard(board.title);
         document.querySelector('#boards').appendChild(singleBoard);
         dom.loadStatuses(board.id);
+        dom.loadCards2(board.id);
         return "done";
     },
 
@@ -108,7 +108,6 @@ export let dom = {
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('blur',  function(){
                         let data = this.innerHTML;
                         if ( data ) {
-                            console.log('in stat fiszem if');
                             dom.loadStatusTitle(status.id, data);
                             dataHandler.updateColumnTitle(status.id, data)
                         }
@@ -124,20 +123,19 @@ export let dom = {
 
         },
 
-    loadCards: function () {
-        // retrieves cards and makes showCards called
-        dataHandler.getCardsByBoardId(function(cards){
-            if (cards) {
-                dom.showCards(cards);
+    loadCards2: function(boardId) {
+        dataHandler.getCardsByBoardId2(boardId, function (cards) {
+            dom.showCards(cards)
+        })
 
-            }
 
-        });
     },
+
     showCards: function (cards) {
         // shows the cards of a board
         // it adds necessary event listeners also
         for (let card of cards) {
+            console.log(cards)
             const createCard = function () {
                 const cardTemplate = document.querySelector('#card-template');
                 const clone = document.importNode(cardTemplate.content, true);
@@ -159,6 +157,10 @@ export let dom = {
                 return clone;
             };
             const singleCard = createCard();
+            console.log(card.board_id)
+            console.log(card.status_id)
+            console.log(card.board_id + card.status_id)
+            console.log(document.querySelector('#board-col-cont' + card.board_id + card.status_id))
             document.querySelector('#board-col-cont' + card.board_id + card.status_id).appendChild(singleCard);
         }
     },

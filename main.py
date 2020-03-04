@@ -34,23 +34,12 @@ def get_statuses(board_id):
     return data_handler2.get_statuses(board_id)
 
 
-@app.route("/get-cards")
-@json_response
-def get_cards_for_board():
-    """
-    All cards that belongs to a board
-    :param board_id: id of the parent board
-    """
-    return data_handler2.get_cards()
 
-@app.route("/get-cards")
+@app.route("/get-cards/<board_id>")
 @json_response
-def get_cards():
-    """
-    All cards that belongs to a board
-    :param board_id: id of the parent board
-    """
-    return data_handler2.get_cards()
+def get_cards_by_board_id(board_id):
+
+    return data_handler2.get_cards_by_boardId(board_id)
 
 @app.route("/update-title/<board_id>", methods=['GET', 'POST'])
 @json_response
@@ -108,7 +97,7 @@ def add_new_card():
 def main():
     app.run(debug=True,
             host='0.0.0.0',
-            port=7002)
+            port=8080)
 
     # Serving the favicon
     with app.app_context():
