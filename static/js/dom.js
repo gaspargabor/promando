@@ -82,6 +82,7 @@ export let dom = {
         const singleBoard = createBoard(board.title);
         document.querySelector('#boards').appendChild(singleBoard);
         dom.loadStatuses(board.id);
+        
         return "done";
     },
 
