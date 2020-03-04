@@ -155,6 +155,12 @@ export let dom = {
                         dom.loadCardTitle(card.id, card.title);}
 
             }) ;
+            clone.querySelector('.delete-card').setAttribute('id', 'delete'+ card.id);
+            clone.querySelector('#delete' + card.id).addEventListener('click', function () {
+                dataHandler.deleteCard(card.id, function () {
+                dom.deleteCard(card.id);
+                })
+            });
             clone.querySelector('.card').setAttribute('id', 'card' + card.id);
                 return clone;
             };
@@ -177,6 +183,10 @@ export let dom = {
     deleteBoard: function (board_id) {
         document.querySelector('#board'+ board_id).remove();
 
+    },
+
+    deleteCard: function(card_id) {
+        document.querySelector('#card' + card_id).remove()
     },
 
     addCard: function (board_id) {

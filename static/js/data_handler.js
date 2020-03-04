@@ -107,6 +107,12 @@ export let dataHandler = {
         })
     },
 
+    deleteCard: function(cardId, callback) {
+        this._api_post('/delete-card/' + cardId, response => {
+            callback(response)
+        })
+    },
+
     updateTitle: function(boardId,data) {
         this._api_post2('/update-title/' + boardId, data, response => {
             this._data = response;

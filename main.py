@@ -96,6 +96,11 @@ def delete_board(board_id):
         data_handler2.delete_status_by_boardid(board_id)
         data_handler2.delete_board(board_id)
 
+@app.route("/delete-card/<card_id>", methods=['GET', 'POST'])
+@json_response
+def delete_card(card_id):
+    if request.method =='POST':
+        data_handler2.delete_card_by_cardid(card_id)
 
 @app.route('/add-card', methods=['GET', 'POST'])
 @json_response

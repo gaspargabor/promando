@@ -6,6 +6,9 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>ProMando</title>
 
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/solid.css" integrity="sha384-rdyFrfAIC05c5ph7BKz3l5NG5yEottvO/DQ0dCrwD8gzeQDjYBHNr1ucUpQuljos" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css" integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
@@ -36,7 +39,7 @@
         </template>
         <template id="card-template">
             <div class="card" draggable="true" ondragstart="dragStart(event)">
-                <div class="card-title" contenteditable="true">Card 1</div><span class="dot"></span>
+                <div class="card-title" contenteditable="true">Card 1</div><span class="delete-card"><i class="fas fa-trash-alt"></i></span><span class="dot"></span>
             </div>
         </template>
     <script src="/static/js/drag_drop.js"></script>

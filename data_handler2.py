@@ -181,3 +181,10 @@ def update_card_position(cursor, card_id, new_col):
                     WHERE id = %(card_id)s
                      """,
                    {'card_id': card_id, 'new_col': new_col})
+
+@database_common.connection_handler
+def delete_card_by_cardid(cursor, card_id):
+    cursor.execute("""
+                    DELETE FROM cards
+                    WHERE id = %(card_id)s""",
+                   {'card_id': card_id})

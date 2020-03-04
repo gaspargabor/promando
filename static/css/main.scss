@@ -233,7 +233,7 @@ height: max-content;
     padding: 10px;
     cursor:pointer;
   display: grid;
-  grid-template-columns: 90% 10%;
+  grid-template-columns: 80% 10% 10%;
   }
 
 .dot {
@@ -242,6 +242,6 @@ height: max-content;
   background-color: rgba(0, 0, 0, .05);
   border-radius: 50%;
   display: inline-block;
-  grid-column: 2;
+  grid-column: 3;
   box-shadow: 5px 6px 10px rgba(0, 0, 0, .5), -5px -6px 10px rgba(255, 255, 255, .2);
 }
