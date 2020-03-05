@@ -233,7 +233,7 @@ button:hover {
 
 .column-title {
   display: grid;
-  grid-template-columns: 90% 10%; }
+  grid-template-columns: 93% 7%; }
 
 @media (max-width: 500px) {
   .add-column {
