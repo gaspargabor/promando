@@ -12,16 +12,23 @@
   --status-9: #91008f; }
 
 html {
-  width: 100%; }
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100vh; }
 
 body {
   width: 100%;
+  top: 0;
+  height: 100vh;
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   background: #ddd url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/diagonal-noise.png); }
 
 h1 {
+  margin: 0;
+  padding: 1em;
   text-align: center;
   font-size: 4em;
   letter-spacing: 5px;
@@ -34,7 +41,7 @@ h1 {
   width: 100%;
   padding: 0;
   margin: 0;
-  height: 100vh; }
+  height: min-content; }
   #boards section.board {
     margin: 20px 0;
     border: aliceblue;

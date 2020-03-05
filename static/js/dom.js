@@ -3,33 +3,21 @@ import {dataHandler} from "./data_handler.js";
 
 let socket = io();
             socket.on('edit title!', function (response) {
-                console.log('got edited title in dom');
-                console.log(response);
                 dom.loadCardTitle(response['id'], response['title'])
             });
             socket.on('edit col title!', function (response) {
-                console.log('got edited col title in dom');
-                console.log(response);
                 dom.loadStatusTitle(response['id'], response['title'])
             });
             socket.on('edit board title!', function (response) {
-                console.log('got edited board title in dom');
-                console.log(response);
                 dom.loadTitle(response['id'], response['title'])
             });
             socket.on('new card', function (response) {
-                console.log('new card in da house');
-                console.log(response);
                 dom.showCard(response)
             });
             socket.on('new board', function (response) {
-                console.log('new card in da house');
-                console.log(response);
                 dom.showBoard(response);
             });
             socket.on('new col', function (response) {
-                console.log('new col in da house');
-                console.log(response);
                 dom.showStatus(response);
             });
 
@@ -75,7 +63,6 @@ export let dom = {
                    e.preventDefault()
                 }
             };
-                console.log('onclick')
             } );
             clone.querySelector('#board-title'+ board.id).addEventListener('blur',  function(){
                     let data = this.innerHTML;
@@ -347,10 +334,7 @@ export let dom = {
         addColumn: function (board_id) {
         dataHandler.createNewColumnId(board_id, function (column) {
             let status_id = column.col_id + 1;
-            console.log('dom add col');
-            console.log(status_id);
             let col_id = (board_id.toString() + status_id.toString());
-            console.log(col_id);
             let data = {id: status_id,  board_id: board_id, title: 'new column'};
             dataHandler.createNewColumn(data, function (status) {
             // dom.showStatus(status);

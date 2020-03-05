@@ -20,7 +20,6 @@ function allowDrop(ev) {
            targetParentEl.appendChild(sourceIdEl);
 
         }else{
-            console.log(sourceIdParentEl);
             let data = {'targetEl': targetEl.id, 'sourceIdEl': sourceIdEl.id};
             socket.emit('drop append', data);
              // targetEl.appendChild(sourceIdEl);
@@ -40,8 +39,6 @@ function saveDropPosition(colId, card) {
 
     let boardid = document.querySelector('#' + colId).parentElement.parentElement.id.replace('columns', '');
     let data = {colId: colId.replace('board-col-cont' + boardid, ''), card: card.replace('card','')};
-    console.log(colId.replace('board-col-cont' + boardid, ''));
-    console.log(colId);
 
     fetch("/save-drop", {
           method: "POST",

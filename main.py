@@ -9,31 +9,9 @@ app = Flask(__name__)
 socket = SocketIO(app, async_mode=None)
 
 
-@socket.on('start drag')
-def handle_my_custom_event(data):
-    print('in start drag')
-    print(data)
-
-
-@socket.on('drop it')
-def handle_my_drop(data):
-    print('in drop eet')
-    print(data)
-
-
 @socket.on('drop append')
 def handle_my_drop(data):
-    print('in drop append')
-    print(data)
     emit('all drop it', data, broadcast=True)
-
-
-@socket.on('new card trigger')
-def handle_my_new_card(json):
-    print('new card in da server?')
-    print(json)
-    # emit('new card response', json, broadcast=True)
-
 
 
 @app.route("/")
@@ -149,7 +127,6 @@ def add_new_card():
     if request.method == 'POST':
         data = request.get_json()
         new_card = data_handler2.add_new_card(data)
-        print(new_card)
         socket.emit('new card', new_card, broadcast=True)
         return new_card
 
@@ -184,7 +161,6 @@ def create_new_column():
 @json_response
 def delete_columns(status_id):
     if request.method == 'POST':
-        print('in server')
         data_handler2.delete_column_by_statusid(status_id)
 
 
@@ -195,5 +171,5 @@ def main():
 
 
 if __name__ == '__main__':
-    socket.run(app, host='10.44.4.84')
+    socket.run(app)
     main()
