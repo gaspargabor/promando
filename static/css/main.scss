@@ -3,15 +3,15 @@
 :root{
     --border-radius: 3px;
     --status-1: #910000;
-    --status-2: #917200;
-    --status-3: #8a9100;
+    --status-2: #cea500;
+    --status-3: #917200;
     --status-4: #099100;
-    --status-5: #009178;
+    --status-5: #006455;
     --status-6: #005291;
-    --status-7: #000c91;
-    --status-8: #5c0591;
+      --status-7: #5c0591;
+    --status-8: #ff74ca;
     --status-9: #91008f;
-    --status-10: #910055;
+
 }
 
 html {
@@ -193,6 +193,7 @@ h1{
 
 .card-title{
     margin: auto 50px auto 0;
+  font-size: 20px;
 }
 
 button{
