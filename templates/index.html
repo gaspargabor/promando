@@ -26,6 +26,7 @@
                 <div class="board-header"><span class="board-title"  contenteditable="true" >Board 1</span>
                     <button class="board-add">Add Card</button>
                     <button class="delete-board">Delete Board</button>
+                    <button class="add-column">Add Column</button>
                     <button class="board-toggle"><i class="fas fa-chevron-up"></i></button>
                 </div>
                 <div class="board-columns"></div>
@@ -33,7 +34,9 @@
         </template>
         <template id="column-template">
             <div class="board-column">
-                    <div class="board-column-title"  contenteditable="true">New</div>
+                <div class="column-title">
+                    <div class="board-column-title"  contenteditable="true">New</div><span class="delete-column"><i class="fas fa-trash-alt"></i></span></i>
+                    </div>
                     <div class="board-column-content" ondrop="dropIt(event)" ondragover="allowDrop(event)"></div>
                 </div>
         </template>
