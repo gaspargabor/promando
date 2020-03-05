@@ -175,7 +175,9 @@ def create_new_column_id(board_id):
 def create_new_column():
     if request.method == 'POST':
         data = request.get_json()
-        return data_handler2.create_new_column(data)
+        new_col = data_handler2.create_new_column(data)
+        socket.emit('new col', new_col, broadcast=True)
+        return new_col
 
 
 @app.route('/delete-column/<status_id>', methods=['GET', 'POST'])
@@ -184,6 +186,7 @@ def delete_columns(status_id):
     if request.method == 'POST':
         print('in server')
         data_handler2.delete_column_by_statusid(status_id)
+
 
 def main():
     # Serving the favicon

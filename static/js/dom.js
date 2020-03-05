@@ -27,6 +27,11 @@ let socket = io();
                 console.log(response);
                 dom.showBoard(response);
             });
+            socket.on('new col', function (response) {
+                console.log('new col in da house');
+                console.log(response);
+                dom.showStatus(response);
+            });
 
 export let dom = {
     init: function () {
@@ -348,7 +353,7 @@ export let dom = {
             console.log(col_id);
             let data = {id: status_id,  board_id: board_id, title: 'new column'};
             dataHandler.createNewColumn(data, function (status) {
-            dom.showStatus(status);
+            // dom.showStatus(status);
         })
         })
     },
