@@ -118,10 +118,11 @@ def add_default_stat(cursor):
 
 @database_common.connection_handler
 def get_col_num(cursor, board_id):
-    cursor.execute("""SELECT b.id, b.title, count(s.title) as col_count from board b
+    cursor.execute("""SELECT s.id as col_id, s.board_id from board b
                     inner join statuses s on b.id = s.board_id
                     where b.id = %(board_id)s
-                    group by b.title, b.id""", {'board_id': board_id})
+                    group by s.board_id, s.id
+                    order by s.id desc""", {'board_id': board_id})
     column = cursor.fetchone()
     return column
 

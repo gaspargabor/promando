@@ -301,11 +301,11 @@ export let dom = {
 
         addColumn: function (board_id) {
         dataHandler.createNewColumnId(board_id, function (column) {
-            let status_id = column.col_count + 1;
-            console.log(status_id)
+            let status_id = column.col_id + 1;
+            console.log(status_id);
             let col_id = (board_id.toString() + status_id.toString());
             console.log(col_id)
-            let data = {id: col_id,  board_id: board_id, title: 'new column'};
+            let data = {id: status_id,  board_id: board_id, title: 'new column'};
             dataHandler.createNewColumn(data, function (status) {
             dom.showStatus(status);
         })
