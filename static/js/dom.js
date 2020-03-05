@@ -86,6 +86,10 @@ export let dom = {
             clone.querySelector('#add-card' + board.id).addEventListener('click', function () {
                 dom.addCard(board.id);
             });
+            clone.querySelector('.add-column').setAttribute('id', 'add-column' + board.id);
+            clone.querySelector('#add-column' + board.id).addEventListener('click', function () {
+                dom.addColumn(board.id);
+            });
             return clone;
         };
         const singleBoard = createBoard(board.title);
@@ -113,7 +117,7 @@ export let dom = {
                 clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +status.id);
                 clone.querySelector('.board-column-title').setAttribute('id', 'board-column-title'+status.id);
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('click', function () {
-                        let elementContenteditable = document.getElementById('board-title' + board.id);
+                        let elementContenteditable = document.getElementById('board-column-title' + status.id);
                         elementContenteditable.onkeydown = function (e) {
                 if (e.keyCode == 13) {
                    e.preventDefault()
@@ -121,7 +125,6 @@ export let dom = {
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('blur',  function(){
                         let data = this.innerHTML;
                         if ( data ) {
-                            console.log('in stat fiszem if');
                             dom.loadStatusTitle(status.id, data);
                             dataHandler.updateColumnTitle(status.id, data)
                         }
@@ -136,6 +139,35 @@ export let dom = {
         }
 
         },
+
+    showStatus: function(status) {
+        const createColumn = function(title){
+                const columnTemplate = document.querySelector('#column-template');
+                const clone = document.importNode(columnTemplate.content, true);
+                clone.querySelector('.board-column-title').textContent = title;
+                clone.querySelector('.board-column').setAttribute('id', 'board-col' + status.id);
+                clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +status.id);
+                clone.querySelector('.board-column-title').setAttribute('id', 'board-column-title'+status.id);
+                clone.querySelector('#board-column-title'+ status.id).addEventListener('click', function () {
+                        let elementContenteditable = document.getElementById('board-column-title' + status.id);
+                        elementContenteditable.onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                   e.preventDefault()
+                }}});
+                clone.querySelector('#board-column-title'+ status.id).addEventListener('blur',  function(){
+                        let data = this.innerHTML;
+                        if ( data ) {
+                            dom.loadStatusTitle(status.id, data);
+                            dataHandler.updateColumnTitle(status.id, data)
+                        }
+                       else {
+                        dom.loadStatusTitle(status.id, status.title);}
+                }) ;
+                return clone;
+            };
+            const singleCol = createColumn(status.title);
+            document.querySelector('#columns' + status.board_id).appendChild(singleCol);
+    },
 
     loadCards: function () {
         // retrieves cards and makes showCards called
@@ -265,6 +297,19 @@ export let dom = {
         loadCardTitle: function (card_id, card) {
             return document.querySelector('#card-title'+ card_id).textContent = card;
 
-        }
+        },
+
+        addColumn: function (board_id) {
+        dataHandler.createNewColumnId(board_id, function (column) {
+            let status_id = column.col_count + 1;
+            console.log(status_id)
+            let col_id = (board_id.toString() + status_id.toString());
+            console.log(col_id)
+            let data = {id: col_id,  board_id: board_id, title: 'new column'};
+            dataHandler.createNewColumn(data, function (status) {
+            dom.showStatus(status);
+        })
+        })
+    },
 
 };
