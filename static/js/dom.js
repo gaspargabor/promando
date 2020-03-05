@@ -113,7 +113,7 @@ export let dom = {
                 clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +status.id);
                 clone.querySelector('.board-column-title').setAttribute('id', 'board-column-title'+status.id);
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('click', function () {
-                        let elementContenteditable = document.getElementById('board-title' + board.id);
+                        let elementContenteditable = document.getElementById('board-column-title' + status.id);
                         elementContenteditable.onkeydown = function (e) {
                 if (e.keyCode == 13) {
                    e.preventDefault()
