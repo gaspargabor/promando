@@ -6,6 +6,12 @@
     --status-2: #917200;
     --status-3: #8a9100;
     --status-4: #099100;
+    --status-5: #009178;
+    --status-6: #005291;
+    --status-7: #000c91;
+    --status-8: #5c0591;
+    --status-9: #91008f;
+    --status-10: #910055;
 }
 
 html {
@@ -151,6 +157,26 @@ h1{
 
 .board-column:nth-of-type(4) .card{
     background: var(--status-4);
+}
+
+.board-column:nth-of-type(5) .card{
+    background: var(--status-5);
+}
+
+.board-column:nth-of-type(6) .card{
+    background: var(--status-6);
+}
+.board-column:nth-of-type(7) .card{
+    background: var(--status-7);
+}
+.board-column:nth-of-type(8) .card{
+    background: var(--status-8);
+}
+.board-column:nth-of-type(9) .card{
+    background: var(--status-9);
+}
+.board-column:nth-of-type(10) .card{
+    background: var(--status-10);
 }
 
 .card-remove{
