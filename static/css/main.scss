@@ -245,3 +245,9 @@ height: max-content;
   grid-column: 3;
   box-shadow: 5px 6px 10px rgba(0, 0, 0, .5), -5px -6px 10px rgba(255, 255, 255, .2);
 }
+
+[contenteditable=true]{
+  content: attr(placeholder);
+  white-space: pre-wrap;
+
+}

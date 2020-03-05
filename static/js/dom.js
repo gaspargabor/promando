@@ -30,12 +30,20 @@ export let dom = {
         // it adds necessary event listeners also
 
         const createBoard = function(title){
+
             const boardTemplate = document.querySelector('#board-template');
             const clone = document.importNode(boardTemplate.content, true);
             clone.querySelector('.board-title').textContent = title;
 
             clone.querySelector('.board-title').setAttribute('id', 'board-title'+board.id);
-            clone.querySelector('#board-title'+ board.id).addEventListener('click', function () {
+
+            clone.querySelector('#board-title'+ board.id).addEventListener('click', function (e) {
+                let elementContenteditable = document.getElementById('board-title' + board.id);
+            elementContenteditable.onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                   e.preventDefault()
+                }
+            };
                 console.log('onclick')
             } );
             clone.querySelector('#board-title'+ board.id).addEventListener('blur',  function(){
@@ -105,7 +113,12 @@ export let dom = {
                 clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +status.id);
                 clone.querySelector('.board-column-title').setAttribute('id', 'board-column-title'+status.id);
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('click', function () {
-                    console.log('onclick');
+                        let elementContenteditable = document.getElementById('board-title' + board.id);
+                        elementContenteditable.onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                   e.preventDefault()
+                }
+                };
                 } );
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('blur',  function(){
                         let data = this.innerHTML;
@@ -145,7 +158,13 @@ export let dom = {
                 const clone = document.importNode(cardTemplate.content, true);
                 clone.querySelector('.card-title').textContent = card.title;
             clone.querySelector('.card-title').setAttribute('id', 'card-title'+card.id);
-            clone.querySelector('#card-title'+ card.id).addEventListener('click', function () {
+            clone.querySelector('#card-title'+ card.id).addEventListener('click', function (event) {
+                let elementContenteditable = document.getElementById('card-title' + card.id);
+                elementContenteditable.onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                   e.preventDefault()
+                }
+            };
             } );
             clone.querySelector('#card-title'+ card.id).addEventListener('blur',  function(){
                     let data = this.innerHTML;
@@ -206,7 +225,14 @@ export let dom = {
             clone.querySelector('.card-title').textContent = card.title;
             clone.querySelector('.card-title').setAttribute('id', 'card-title'+card.id);
             clone.querySelector('#card-title'+ card.id).addEventListener('click', function () {
-            } );
+
+                let elementContenteditable = document.getElementById('card-title' + card.id);
+                elementContenteditable.onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                   e.preventDefault()
+                }
+            };
+            });
             clone.querySelector('#card-title'+ card.id).addEventListener('blur',  function(){
                     let data = this.innerHTML;
                         if ( data ) {
@@ -216,7 +242,7 @@ export let dom = {
                        else {
                         dom.loadCardTitle(card.id, card.title);}
 
-            }) ;
+            });
             clone.querySelector('.delete-card').setAttribute('id', 'delete'+ card.id);
             clone.querySelector('#delete' + card.id).addEventListener('click', function () {
                 dataHandler.deleteCard(card.id, function () {
