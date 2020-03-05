@@ -117,9 +117,7 @@ export let dom = {
                         elementContenteditable.onkeydown = function (e) {
                 if (e.keyCode == 13) {
                    e.preventDefault()
-                }
-                };
-                } );
+                }}});
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('blur',  function(){
                         let data = this.innerHTML;
                         if ( data ) {

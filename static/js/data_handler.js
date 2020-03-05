@@ -73,7 +73,6 @@ export let dataHandler = {
             this._data = response;
             callback(response);
         });
-
     },
     getStatus: function (statusId, callback) {
         // the status is retrieved and then the callback function is called with the status
@@ -92,7 +91,6 @@ export let dataHandler = {
     createNewBoard: function (callback) {
         // creates new board, saves it and calls the callback function with its data
                 this._api_post('/add-board', callback)
-
 
     },
     createNewCard: function (data, callback) {
