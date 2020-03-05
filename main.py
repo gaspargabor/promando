@@ -137,6 +137,11 @@ def delete_board(board_id):
         data_handler2.delete_board(board_id)
         socket.emit('new board', broadcast=True)
 
+@app.route("/delete-card/<card_id>", methods=['GET', 'POST'])
+@json_response
+def delete_card(card_id):
+    if request.method =='POST':
+        data_handler2.delete_card_by_cardid(card_id)
 
 @app.route('/add-card', methods=['GET', 'POST'])
 @json_response
@@ -159,6 +164,27 @@ def save_drop():
         return "kk"
 
 
+@app.route('/create-column-id/<board_id>')
+@json_response
+def create_new_column_id(board_id):
+    return data_handler2.get_col_num(board_id)
+
+
+@app.route('/create-column', methods=['GET', 'POST'])
+@json_response
+def create_new_column():
+    if request.method == 'POST':
+        data = request.get_json()
+        return data_handler2.create_new_column(data)
+
+
+@app.route('/delete-column/<status_id>', methods=['GET', 'POST'])
+@json_response
+def delete_columns(status_id):
+    if request.method == 'POST':
+        print('in server')
+        data_handler2.delete_column_by_statusid(status_id)
+
 def main():
     # Serving the favicon
     with app.app_context():
@@ -166,5 +192,5 @@ def main():
 
 
 if __name__ == '__main__':
-    socket.run(app)
+    socket.run(app, host='10.44.4.84')
     main()

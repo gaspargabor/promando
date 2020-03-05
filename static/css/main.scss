@@ -130,7 +130,8 @@ h1{
 }
 
 .board-column-title{
-    text-align: center;
+
+    margin-right: 70px;
 }
 
 .card{
@@ -156,6 +157,26 @@ h1{
 
 .board-column:nth-of-type(4) .card{
     background: var(--status-4);
+}
+
+.board-column:nth-of-type(5) .card{
+    background: var(--status-5);
+}
+
+.board-column:nth-of-type(6) .card{
+    background: var(--status-6);
+}
+.board-column:nth-of-type(7) .card{
+    background: var(--status-7);
+}
+.board-column:nth-of-type(8) .card{
+    background: var(--status-8);
+}
+.board-column:nth-of-type(9) .card{
+    background: var(--status-9);
+}
+.board-column:nth-of-type(10) .card{
+    background: var(--status-10);
 }
 
 .card-remove{
@@ -239,7 +260,7 @@ height: max-content;
     padding: 10px;
     cursor:pointer;
   display: grid;
-  grid-template-columns: 90% 10%;
+  grid-template-columns: 80% 10% 10%;
   }
 
 .dot {
@@ -248,6 +269,17 @@ height: max-content;
   background-color: rgba(0, 0, 0, .05);
   border-radius: 50%;
   display: inline-block;
-  grid-column: 2;
+  grid-column: 3;
   box-shadow: 5px 6px 10px rgba(0, 0, 0, .5), -5px -6px 10px rgba(255, 255, 255, .2);
+}
+
+[contenteditable=true]{
+  content: attr(placeholder);
+  white-space: pre-wrap;
+
+}
+
+.column-title{
+  display: grid;
+  grid-template-columns: 90% 10%;
 }

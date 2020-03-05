@@ -73,7 +73,6 @@ export let dataHandler = {
             this._data = response;
             callback(response);
         });
-
     },
     getStatus: function (statusId, callback) {
         // the status is retrieved and then the callback function is called with the status
@@ -93,18 +92,40 @@ export let dataHandler = {
         // creates new board, saves it and calls the callback function with its data
                 this._api_post('/add-board', callback)
 
-
     },
     createNewCard: function (data, callback) {
         // creates new card, saves it and calls the callback function with its data
         this._api_post2('/add-card', data, callback)
     },
+    createNewColumnId: function(board_id, callback) {
+        this._api_get('/create-column-id/' + board_id, (response) => {
+            callback(response)
+        })
+    },
+    createNewColumn: function(data, callback) {
+        this._api_post2('/create-column', data, (response) =>{
+            callback(response)
+        })
+    },
+
     // here comes more features
     deleteBoard: function (boardId, callback) {
         this._api_post('/delete-board/' + boardId, response => {
             this._data = response;
             callback(response)
         })
+    },
+
+    deleteCard: function(cardId, callback) {
+        this._api_post('/delete-card/' + cardId, response => {
+            callback(response)
+        })
+    },
+
+    deleteColumn: function(status_id, callback) {
+        this._api_post('/delete-column/' + status_id, callback)
+
+
     },
 
     updateTitle: function(boardId,data) {

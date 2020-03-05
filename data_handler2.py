@@ -55,8 +55,6 @@ def get_cards(cursor):
     return cards
 
 
-
-
 @database_common.connection_handler
 def get_newest_board(cursor):
     cursor.execute("""
@@ -119,6 +117,17 @@ def add_default_stat(cursor):
 
 
 @database_common.connection_handler
+def get_col_num(cursor, board_id):
+    cursor.execute("""SELECT s.id as col_id, s.board_id from board b
+                    inner join statuses s on b.id = s.board_id
+                    where b.id = %(board_id)s
+                    group by s.board_id, s.id
+                    order by s.id desc""", {'board_id': board_id})
+    column = cursor.fetchone()
+    return column
+
+
+@database_common.connection_handler
 def get_newest_card(cursor):
     cursor.execute("""
                     SELECT * FROM cards
@@ -136,6 +145,7 @@ def add_new_card(cursor, data):
                      VALUES (%(board_id)s, %(title)s, %(status_id)s)""",
                    {'board_id': data['board_id'], 'title': data['title'], 'status_id': data['status_id']})
     return get_newest_card()
+
 
 
 @database_common.connection_handler
@@ -159,10 +169,6 @@ def update_column_title(cursor, status_id, new_title):
 
 
 
-
-
-
-
 @database_common.connection_handler
 def update_card_title(cursor, card_id, new_title):
     cursor.execute("""
@@ -181,3 +187,39 @@ def update_card_position(cursor, card_id, new_col):
                     WHERE id = %(card_id)s
                      """,
                    {'card_id': card_id, 'new_col': new_col})
+
+@database_common.connection_handler
+def delete_card_by_cardid(cursor, card_id):
+    cursor.execute("""
+                    DELETE FROM cards
+                    WHERE id = %(card_id)s""",
+                   {'card_id': card_id})
+
+@database_common.connection_handler
+def get_newest_column(cursor, board_id):
+    cursor.execute("""
+                    SELECT id, board_id, title FROM statuses
+                    WHERE board_id = %(board_id)s
+                    ORDER BY id DESC
+                    LIMIT 1
+                    """, {'board_id': board_id})
+    last_card = cursor.fetchone()
+    return last_card
+
+
+@database_common.connection_handler
+def create_new_column(cursor, data):
+    cursor.execute("""
+                        INSERT INTO statuses(id, board_id, title)
+                         VALUES (%(id)s, %(board_id)s, %(title)s)""",
+                   {'id': data['id'], 'board_id': data['board_id'], 'title': data['title']})
+    return get_newest_column(data['board_id'])
+
+
+@database_common.connection_handler
+def delete_column_by_statusid(cursor, status_id):
+    cursor.execute("""
+                    DELETE FROM statuses
+                    WHERE id = %(status_id)s""",
+                   {'status_id': status_id})
+

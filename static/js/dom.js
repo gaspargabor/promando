@@ -56,12 +56,20 @@ export let dom = {
         // it adds necessary event listeners also
 
         const createBoard = function(title){
+
             const boardTemplate = document.querySelector('#board-template');
             const clone = document.importNode(boardTemplate.content, true);
             clone.querySelector('.board-title').textContent = title;
 
             clone.querySelector('.board-title').setAttribute('id', 'board-title'+board.id);
-            clone.querySelector('#board-title'+ board.id).addEventListener('click', function () {
+
+            clone.querySelector('#board-title'+ board.id).addEventListener('click', function (e) {
+                let elementContenteditable = document.getElementById('board-title' + board.id);
+            elementContenteditable.onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                   e.preventDefault()
+                }
+            };
                 console.log('onclick')
             } );
             clone.querySelector('#board-title'+ board.id).addEventListener('blur',  function(){
@@ -82,13 +90,15 @@ export let dom = {
             clone.querySelector('.board-toggle').setAttribute('id', 'toggle'+ board.id);
             let toggle = clone.querySelector('#toggle' + board.id)
             clone.querySelector('#toggle' + board.id).addEventListener('click', function () {
-                console.log('columns');
+
+            let firstchild = toggle.firstChild;
                 if (columns.style.display === "none") {
-                    toggle.textContent = '-';
                 columns.style.display = "flex";
+                firstchild.classList = "fas fa-chevron-up"
               } else {
-                    toggle.textContent = 'V';
+
                 columns.style.display = "none";
+                firstchild.classList = "fas fa-chevron-down"
               }
 
             });
@@ -100,13 +110,18 @@ export let dom = {
             });
             clone.querySelector('.board-add').setAttribute('id', 'add-card' + board.id);
             clone.querySelector('#add-card' + board.id).addEventListener('click', function () {
-                dom.addCard(board.id)
+                dom.addCard(board.id);
+            });
+            clone.querySelector('.add-column').setAttribute('id', 'add-column' + board.id);
+            clone.querySelector('#add-column' + board.id).addEventListener('click', function () {
+                dom.addColumn(board.id);
             });
             return clone;
         };
         const singleBoard = createBoard(board.title);
         document.querySelector('#boards').appendChild(singleBoard);
         dom.loadStatuses(board.id);
+
         return "done";
     },
 
@@ -128,18 +143,26 @@ export let dom = {
                 clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +status.id);
                 clone.querySelector('.board-column-title').setAttribute('id', 'board-column-title'+status.id);
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('click', function () {
-                    console.log('onclick');
-                } );
+                        let elementContenteditable = document.getElementById('board-column-title' + status.id);
+                        elementContenteditable.onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                   e.preventDefault()
+                }}});
                 clone.querySelector('#board-column-title'+ status.id).addEventListener('blur',  function(){
                         let data = this.innerHTML;
                         if ( data ) {
-                            console.log('in stat fiszem if');
                             dom.loadStatusTitle(status.id, data);
                             dataHandler.updateColumnTitle(status.id, data)
                         }
                        else {
                         dom.loadStatusTitle(status.id, status.title);}
                 }) ;
+                clone.querySelector('.delete-column').setAttribute('id', 'delete-col'+ status.id);
+                clone.querySelector('#delete-col' + status.id).addEventListener('click', function () {
+                    dataHandler.deleteColumn(status.id, function () {
+                    dom.deleteColumn(status.id);
+                    })
+                });
                 return clone;
             };
             const singleCol = createColumn(status.title);
@@ -148,6 +171,41 @@ export let dom = {
         }
 
         },
+
+    showStatus: function(status) {
+        const createColumn = function(title){
+                const columnTemplate = document.querySelector('#column-template');
+                const clone = document.importNode(columnTemplate.content, true);
+                clone.querySelector('.board-column-title').textContent = title;
+                clone.querySelector('.board-column').setAttribute('id', 'board-col' + status.id);
+                clone.querySelector('.board-column-content').setAttribute('id', 'board-col-cont' +status.id);
+                clone.querySelector('.board-column-title').setAttribute('id', 'board-column-title'+status.id);
+                clone.querySelector('#board-column-title'+ status.id).addEventListener('click', function () {
+                        let elementContenteditable = document.getElementById('board-column-title' + status.id);
+                        elementContenteditable.onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                   e.preventDefault()
+                }}});
+                clone.querySelector('#board-column-title'+ status.id).addEventListener('blur',  function(){
+                        let data = this.innerHTML;
+                        if ( data ) {
+                            dom.loadStatusTitle(status.id, data);
+                            dataHandler.updateColumnTitle(status.id, data)
+                        }
+                       else {
+                        dom.loadStatusTitle(status.id, status.title);}
+                }) ;
+                clone.querySelector('.delete-column').setAttribute('id', 'delete-col'+ status.id);
+                clone.querySelector('#delete-col' + status.id).addEventListener('click', function () {
+                    dataHandler.deleteColumn(status.id, function () {
+                    dom.deleteColumn(status.id);
+                    })
+                });
+                return clone;
+            };
+            const singleCol = createColumn(status.title);
+            document.querySelector('#columns' + status.board_id).appendChild(singleCol);
+    },
 
     loadCards: function () {
         // retrieves cards and makes showCards called
@@ -168,7 +226,13 @@ export let dom = {
                 const clone = document.importNode(cardTemplate.content, true);
                 clone.querySelector('.card-title').textContent = card.title;
             clone.querySelector('.card-title').setAttribute('id', 'card-title'+card.id);
-            clone.querySelector('#card-title'+ card.id).addEventListener('click', function () {
+            clone.querySelector('#card-title'+ card.id).addEventListener('click', function (event) {
+                let elementContenteditable = document.getElementById('card-title' + card.id);
+                elementContenteditable.onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                   e.preventDefault()
+                }
+            };
             } );
             clone.querySelector('#card-title'+ card.id).addEventListener('blur',  function(){
                     let data = this.innerHTML;
@@ -180,6 +244,12 @@ export let dom = {
                         dom.loadCardTitle(card.id, card.title);}
 
             }) ;
+            clone.querySelector('.delete-card').setAttribute('id', 'delete'+ card.id);
+            clone.querySelector('#delete' + card.id).addEventListener('click', function () {
+                dataHandler.deleteCard(card.id, function () {
+                dom.deleteCard(card.id);
+                })
+            });
             clone.querySelector('.card').setAttribute('id', 'card' + card.id);
                 return clone;
             };
@@ -204,6 +274,14 @@ export let dom = {
 
     },
 
+    deleteCard: function(card_id) {
+        document.querySelector('#card' + card_id).remove()
+    },
+
+    deleteColumn: function(status_id) {
+        document.querySelector('#board-col' + status_id).remove()
+    },
+
     addCard: function (board_id) {
         let status_id = 1;
         let data = {board_id: board_id, title: 'new card', status_id: status_id};
@@ -217,7 +295,14 @@ export let dom = {
             clone.querySelector('.card-title').textContent = card.title;
             clone.querySelector('.card-title').setAttribute('id', 'card-title'+card.id);
             clone.querySelector('#card-title'+ card.id).addEventListener('click', function () {
-            } );
+
+                let elementContenteditable = document.getElementById('card-title' + card.id);
+                elementContenteditable.onkeydown = function (e) {
+                if (e.keyCode == 13) {
+                   e.preventDefault()
+                }
+            };
+            });
             clone.querySelector('#card-title'+ card.id).addEventListener('blur',  function(){
                     let data = this.innerHTML;
                         if ( data ) {
@@ -227,7 +312,13 @@ export let dom = {
                        else {
                         dom.loadCardTitle(card.id, card.title);}
 
-            }) ;
+            });
+            clone.querySelector('.delete-card').setAttribute('id', 'delete'+ card.id);
+            clone.querySelector('#delete' + card.id).addEventListener('click', function () {
+                dataHandler.deleteCard(card.id, function () {
+                dom.deleteCard(card.id);
+                })
+            });
             clone.querySelector('.card').setAttribute('id', 'card' + card.id);
             return clone;
         };
@@ -246,6 +337,20 @@ export let dom = {
         loadCardTitle: function (card_id, card) {
             return document.querySelector('#card-title'+ card_id).textContent = card;
 
-        }
+        },
+
+        addColumn: function (board_id) {
+        dataHandler.createNewColumnId(board_id, function (column) {
+            let status_id = column.col_id + 1;
+            console.log('dom add col');
+            console.log(status_id);
+            let col_id = (board_id.toString() + status_id.toString());
+            console.log(col_id);
+            let data = {id: status_id,  board_id: board_id, title: 'new column'};
+            dataHandler.createNewColumn(data, function (status) {
+            dom.showStatus(status);
+        })
+        })
+    },
 
 };

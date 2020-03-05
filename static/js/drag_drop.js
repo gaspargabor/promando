@@ -40,6 +40,8 @@ function saveDropPosition(colId, card) {
 
     let boardid = document.querySelector('#' + colId).parentElement.parentElement.id.replace('columns', '');
     let data = {colId: colId.replace('board-col-cont' + boardid, ''), card: card.replace('card','')};
+    console.log(colId.replace('board-col-cont' + boardid, ''));
+    console.log(colId);
 
     fetch("/save-drop", {
           method: "POST",
