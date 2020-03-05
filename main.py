@@ -125,12 +125,21 @@ def save_drop():
 def create_new_column_id(board_id):
     return data_handler2.get_col_num(board_id)
 
+
 @app.route('/create-column', methods=['GET', 'POST'])
 @json_response
 def create_new_column():
     if request.method == 'POST':
         data = request.get_json()
         return data_handler2.create_new_column(data)
+
+
+@app.route('/delete-column/<status_id>', methods=['GET', 'POST'])
+@json_response
+def delete_columns(status_id):
+    if request.method == 'POST':
+        print('in server')
+        data_handler2.delete_column_by_statusid(status_id)
 
 def main():
     app.run(debug=True,

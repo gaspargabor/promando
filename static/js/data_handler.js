@@ -122,6 +122,12 @@ export let dataHandler = {
         })
     },
 
+    deleteColumn: function(status_id, callback) {
+        this._api_post('/delete-column/' + status_id, callback)
+
+
+    },
+
     updateTitle: function(boardId,data) {
         this._api_post2('/update-title/' + boardId, data, response => {
             this._data = response;

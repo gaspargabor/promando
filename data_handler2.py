@@ -214,3 +214,12 @@ def create_new_column(cursor, data):
                          VALUES (%(id)s, %(board_id)s, %(title)s)""",
                    {'id': data['id'], 'board_id': data['board_id'], 'title': data['title']})
     return get_newest_column(data['board_id'])
+
+
+@database_common.connection_handler
+def delete_column_by_statusid(cursor, status_id):
+    cursor.execute("""
+                    DELETE FROM statuses
+                    WHERE id = %(status_id)s""",
+                   {'status_id': status_id})
+

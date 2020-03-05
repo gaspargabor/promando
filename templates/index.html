@@ -34,7 +34,9 @@
         </template>
         <template id="column-template">
             <div class="board-column">
-                    <div class="board-column-title"  contenteditable="true">New</div>
+                <div class="column-title">
+                    <div class="board-column-title"  contenteditable="true">New</div><span class="delete-column"><i class="fas fa-trash-alt"></i></span></i>
+                    </div>
                     <div class="board-column-content" ondrop="dropIt(event)" ondragover="allowDrop(event)"></div>
                 </div>
         </template>

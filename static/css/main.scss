@@ -124,7 +124,8 @@ h1{
 }
 
 .board-column-title{
-    text-align: center;
+
+    margin-right: 70px;
 }
 
 .card{
@@ -250,4 +251,9 @@ height: max-content;
   content: attr(placeholder);
   white-space: pre-wrap;
 
+}
+
+.column-title{
+  display: grid;
+  grid-template-columns: 90% 10%;
 }

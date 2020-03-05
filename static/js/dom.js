@@ -131,6 +131,12 @@ export let dom = {
                        else {
                         dom.loadStatusTitle(status.id, status.title);}
                 }) ;
+                clone.querySelector('.delete-column').setAttribute('id', 'delete-col'+ status.id);
+                clone.querySelector('#delete-col' + status.id).addEventListener('click', function () {
+                    dataHandler.deleteColumn(status.id, function () {
+                    dom.deleteColumn(status.id);
+                    })
+                });
                 return clone;
             };
             const singleCol = createColumn(status.title);
@@ -163,6 +169,12 @@ export let dom = {
                        else {
                         dom.loadStatusTitle(status.id, status.title);}
                 }) ;
+                clone.querySelector('.delete-column').setAttribute('id', 'delete-col'+ status.id);
+                clone.querySelector('#delete-col' + status.id).addEventListener('click', function () {
+                    dataHandler.deleteColumn(status.id, function () {
+                    dom.deleteColumn(status.id);
+                    })
+                });
                 return clone;
             };
             const singleCol = createColumn(status.title);
@@ -238,6 +250,10 @@ export let dom = {
 
     deleteCard: function(card_id) {
         document.querySelector('#card' + card_id).remove()
+    },
+
+    deleteColumn: function(status_id) {
+        document.querySelector('#board-col' + status_id).remove()
     },
 
     addCard: function (board_id) {
