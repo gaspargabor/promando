@@ -1,11 +1,9 @@
 
-
 function allowDrop(ev) {
     ev.preventDefault();
   }
   function dragStart(ev) {
     ev.dataTransfer.setData("text/plain", ev.target.id);
-    console.log(ev.target);
   }
   function dropIt(ev) {
     ev.preventDefault();
@@ -14,19 +12,18 @@ function allowDrop(ev) {
     let sourceIdParentEl=sourceIdEl.parentElement;
     let targetEl=document.getElementById(ev.target.id);
     let targetParentEl=targetEl.parentElement;
-    console.log(ev.dataTransfer.getData("text/plain"));
-    console.log('source id');
-    saveDropPosition(targetEl.id, sourceId, function (data) {
-        console.log("aok");
-        console.log(data)
-    });
+    saveDropPosition(targetEl.id, sourceId);
 
     if (targetParentEl.id!==sourceIdParentEl.id){
+
         if (targetEl.className === sourceIdEl.className ){
            targetParentEl.appendChild(sourceIdEl);
 
         }else{
-             targetEl.appendChild(sourceIdEl);
+            console.log(sourceIdParentEl);
+            let data = {'targetEl': targetEl.id, 'sourceIdEl': sourceIdEl.id};
+            socket.emit('drop append', data);
+             // targetEl.appendChild(sourceIdEl);
 
         }
 
@@ -39,8 +36,10 @@ function allowDrop(ev) {
 
   }
 
-function saveDropPosition(colId, card, callback) {
-    let data = {colId: colId.slice(-1), card: card.replace('card','')};
+function saveDropPosition(colId, card) {
+
+    let boardid = document.querySelector('#' + colId).parentElement.parentElement.id.replace('columns', '');
+    let data = {colId: colId.replace('board-col-cont' + boardid, ''), card: card.replace('card','')};
 
     fetch("/save-drop", {
           method: "POST",
@@ -49,5 +48,9 @@ function saveDropPosition(colId, card, callback) {
           body: JSON.stringify(data)
         })
           .then(response => response.json())
-            .then(data => callback(data));
 }
+
+
+  socket.on('all drop it', function (data) {
+                document.querySelector('#' + data['targetEl']).appendChild(document.querySelector('#' + data['sourceIdEl']));
+            });

@@ -13,6 +13,14 @@
 
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
         <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            let socket = io();
+            socket.on('connect', function() {
+                socket.emit('my event', {data: 'I\'m connected!'});
+            });
+        </script>
     </head>
     <body>
         <h1>ProMando</h1>
@@ -29,16 +37,9 @@
             </section>
         </template>
         <template id="column-template">
-            <div class="board-column">
-                    <div class="board-column-title" contenteditable="true">New</div>
-                    <div class="board-column-content" ondrop="dropIt(event)" ondragover="allowDrop(event)"></div>
-                </div>
+            <div class="board-column"><div class="board-column-title" contenteditable="true">New</div><div class="board-column-content" ondrop="dropIt(event)" ondragover="allowDrop(event)"></div></div>
         </template>
-        <template id="card-template">
-            <div class="card" draggable="true" ondragstart="dragStart(event)">
-                <div class="card-title" contenteditable="true">Card 1</div><span class="dot"></span>
-            </div>
-        </template>
+        <template id="card-template"><div class="card" draggable="true" ondragstart="dragStart(event)"><div class="card-title" contenteditable="true">Card 1</div><span class="dot"></span></div></template>
     <script src="/static/js/drag_drop.js"></script>
     </body>
 </html>

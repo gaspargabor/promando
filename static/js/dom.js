@@ -1,6 +1,32 @@
 // It uses data_handler.js to visualize elements
 import {dataHandler} from "./data_handler.js";
 
+let socket = io();
+            socket.on('edit title!', function (response) {
+                console.log('got edited title in dom');
+                console.log(response);
+                dom.loadCardTitle(response['id'], response['title'])
+            });
+            socket.on('edit col title!', function (response) {
+                console.log('got edited col title in dom');
+                console.log(response);
+                dom.loadStatusTitle(response['id'], response['title'])
+            });
+            socket.on('edit board title!', function (response) {
+                console.log('got edited board title in dom');
+                console.log(response);
+                dom.loadTitle(response['id'], response['title'])
+            });
+            socket.on('new card', function (response) {
+                console.log('new card in da house');
+                console.log(response);
+                dom.showCard(response)
+            });
+            socket.on('new board', function (response) {
+                console.log('new card in da house');
+                console.log(response);
+                dom.showBoard(response);
+            });
 
 export let dom = {
     init: function () {
@@ -53,16 +79,15 @@ export let dom = {
             clone.querySelector('.board-columns').setAttribute('id', 'columns' + board.id);
             /*clone.querySelector('.board-columns').setAttribute('id', 'board_columns' + board.id);*/
             let columns = clone.querySelector('#columns' + board.id);
-            console.log( board.id)
             clone.querySelector('.board-toggle').setAttribute('id', 'toggle'+ board.id);
             let toggle = clone.querySelector('#toggle' + board.id)
             clone.querySelector('#toggle' + board.id).addEventListener('click', function () {
                 console.log('columns');
                 if (columns.style.display === "none") {
-                    toggle.textContent = '-'
+                    toggle.textContent = '-';
                 columns.style.display = "flex";
               } else {
-                    toggle.textContent = 'V'
+                    toggle.textContent = 'V';
                 columns.style.display = "none";
               }
 
@@ -75,7 +100,7 @@ export let dom = {
             });
             clone.querySelector('.board-add').setAttribute('id', 'add-card' + board.id);
             clone.querySelector('#add-card' + board.id).addEventListener('click', function () {
-                dom.addCard(board.id);
+                dom.addCard(board.id)
             });
             return clone;
         };
@@ -168,7 +193,7 @@ export let dom = {
         let button = document.getElementById('add-board');
         button.addEventListener('click', function () {
             dataHandler.createNewBoard(function (new_board) {
-            dom.showBoard(new_board);
+            // dom.showBoard(new_board);
 
             })
         })
@@ -182,9 +207,7 @@ export let dom = {
     addCard: function (board_id) {
         let status_id = 1;
         let data = {board_id: board_id, title: 'new card', status_id: status_id};
-        dataHandler.createNewCard(data, function (card) {
-            dom.showCard(card);
-        })
+        dataHandler.createNewCard(data)
     },
 
     showCard: function (card) {
